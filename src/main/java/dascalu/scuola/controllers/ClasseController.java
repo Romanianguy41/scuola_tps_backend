@@ -1,5 +1,8 @@
 package dascalu.scuola.controllers;
 
-public class ClasseController {
+import jakarta.ws.rs.Path;
 
+@Path("classe")
+public class ClasseController {
+	
 }
