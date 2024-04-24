@@ -34,9 +34,17 @@ public class ClasseRepository implements ClasseInterface {
 		ArrayList<Classe> classi = new ArrayList<Classe>();
 		StringBuilder query = new StringBuilder();
 		query.append("Select idClasse, classe, sezione ")
-					.append("from classi ")
-					.append("Where ")
-					.append(Specification.convertToSQL(search)).append(";");
+					.append("from classi ");
+					
+		String specificationResult = Specification.convertToSQL(search);
+		System.out.println(specificationResult.equals(""));
+		if(!(specificationResult.equals(""))) {
+			query.append("Where ").append(specificationResult)
+					.append(";");			
+		}
+		System.out.println(specificationResult);
+		System.out.println("\n");
+		System.out.println(query.toString());
 		ResultSet res = db.executeQuery(query.toString());
 		while(res.next()) {
 			classi.add(

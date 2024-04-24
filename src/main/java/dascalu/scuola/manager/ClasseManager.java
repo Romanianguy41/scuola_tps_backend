@@ -27,13 +27,5 @@ public class ClasseManager {
 	public static void createClasse(Classe classe) throws ClassNotFoundException, SQLException{
 		new ClasseRepository().createClasse(classe);
 	} 
-	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-		deleteClasse(new Classe(8,5,"CIF"));
-		System.out.println("\n");
-		System.out.println(getClasses("classe:1"));
-
-		
-	}
 }
