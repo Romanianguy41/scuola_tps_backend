@@ -53,7 +53,7 @@ public class ClasseRepository implements ClasseInterface {
 		query.append("update classi set classe=").append(classe.getClasse())
 					.append("sezione=").append(classe.getSezione())
 					.append("where idClasse=").append(classe.getIdClasse());
-		
+		db.executeQuery(query.toString());
 	}
 
 	@Override
@@ -75,7 +75,5 @@ public class ClasseRepository implements ClasseInterface {
 		query.append(classe.getIdClasse()).append(" ");
 		query.append(classe.getSezione()).append(");");
 		db.executeQuery(query.toString());
-		
-		
 	}
 }
