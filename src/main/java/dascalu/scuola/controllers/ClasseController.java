@@ -27,7 +27,6 @@ public class ClasseController {
 	    		new WriteOptionsBuilder()
 	    			.prettyPrint(true) // per stamparlo in modo tale da essere letto da un umano
 	    			.showTypeInfoNever()
-	    			.skipNullFields(true)
 	    			.build() // IMPORTANTE !!!
 	    		);
 		
@@ -45,7 +44,6 @@ public class ClasseController {
 	    		new WriteOptionsBuilder()
 	    			.prettyPrint(true) // per stamparlo in modo tale da essere letto da un umano
 	    			.showTypeInfoNever()
-	    			.skipNullFields(true)
 	    			.build() // IMPORTANTE !!!
 	    		);
 		
