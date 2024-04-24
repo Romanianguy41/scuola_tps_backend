@@ -13,9 +13,10 @@ public class ClasseRepository implements ClasseInterface {
 	public ArrayList<Classe> getClasses() throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		ArrayList<Classe> classi = new ArrayList<Classe>();
-		String query = "Select idClasse, classe, sezione"
-						+ "from classi;";
-		ResultSet res = db.executeQuery(query);
+		StringBuilder query = new StringBuilder();
+		query.append("Select idClasse, classe, sezione ")
+					.append("from classi");
+		ResultSet res = db.executeQuery(query.toString());
 		while(res.next()) {
 			classi.add(
 					new Classe(res.getInt("idClasse"),
@@ -31,10 +32,12 @@ public class ClasseRepository implements ClasseInterface {
 	public ArrayList<Classe> getClasses(String search) throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		ArrayList<Classe> classi = new ArrayList<Classe>();
-		String query = "Select idClasse, classe, sezione"
-				+ "from classi"  
-				+ "Where " + Specification.convertToSQL(search) + ";";
-		ResultSet res = db.executeQuery(query);
+		StringBuilder query = new StringBuilder();
+		query.append("Select idClasse, classe, sezione ")
+					.append("from classi ")
+					.append("Where ")
+					.append(Specification.convertToSQL(search)).append(";");
+		ResultSet res = db.executeQuery(query.toString());
 		while(res.next()) {
 			classi.add(
 					new Classe(res.getInt("idClasse"),
@@ -70,10 +73,11 @@ public class ClasseRepository implements ClasseInterface {
 	public void createClasse(Classe classe) throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
-		query.append("Insert into classi (idClasse, classe, sezione) ");
-		query.append("values( null,");
-		query.append(classe.getIdClasse()).append(" ");
-		query.append(classe.getSezione()).append(");");
+		query.append("Insert into classi ( classe, sezione) ");
+		query.append("values(");
+		query.append(classe.getClasse()).append(", '");
+		query.append(classe.getSezione()).append("');");
+		System.out.println(query.toString());
 		db.executeQuery(query.toString());
 	}
 }
