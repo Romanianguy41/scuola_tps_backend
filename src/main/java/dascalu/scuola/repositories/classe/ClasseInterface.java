@@ -11,9 +11,9 @@ public interface ClasseInterface {
 	
 	ArrayList<Classe> getClasses(String search) throws ClassNotFoundException, SQLException;
 	
-	void updateClass(Classe classe) throws ClassNotFoundException, SQLException;
+	void updateClasse(Classe classe) throws ClassNotFoundException, SQLException;
 	
-	void deleteClass(Classe classe) throws ClassNotFoundException, SQLException;
+	void deleteClasse(Classe classe) throws ClassNotFoundException, SQLException;
 	
 	void createClasse(Classe classe) throws ClassNotFoundException, SQLException;
 	

@@ -16,12 +16,12 @@ public class ClasseManager {
 		return new ClasseRepository().getClasses(search);
 	}
 	
-	public static void updateClass(Classe classe) throws ClassNotFoundException, SQLException{
-		new ClasseRepository().updateClass(classe);
+	public static void updateClasse(Classe classe) throws ClassNotFoundException, SQLException{
+		new ClasseRepository().updateClasse(classe);
 	}
 	
-	public static void deleteClass(Classe classe) throws ClassNotFoundException, SQLException{
-		new ClasseRepository().deleteClass(classe);
+	public static void deleteClasse(Classe classe) throws ClassNotFoundException, SQLException{
+		new ClasseRepository().deleteClasse(classe);
 	} 
 	
 	public static void createClasse(Classe classe) throws ClassNotFoundException, SQLException{
@@ -29,11 +29,11 @@ public class ClasseManager {
 	} 
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		System.out.println(getClasses());
-		System.out.println(getClasses("sezione:'A',sezione:'B'"));
-		System.out.println(getClasses("classe:2;sezione:'A'"));
-		//createClasse(new Classe(0, 5, "CIF"));
-		System.out.println(getClasses());
-		System.out.println(getClasses("classe:5;sezione:'CIF'"));
+
+		deleteClasse(new Classe(8,5,"CIF"));
+		System.out.println("\n");
+		System.out.println(getClasses("classe:1"));
+
+		
 	}
 }

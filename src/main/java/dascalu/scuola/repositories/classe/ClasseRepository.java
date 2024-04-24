@@ -50,17 +50,17 @@ public class ClasseRepository implements ClasseInterface {
 	}
 
 	@Override
-	public void updateClass(Classe classe) throws ClassNotFoundException, SQLException {
+	public void updateClasse(Classe classe) throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
-		query.append("update classi set classe=").append(classe.getClasse())
-					.append("sezione=").append(classe.getSezione())
+		query.append("update classi set classe=").append(classe.getClasse() )
+					.append(",sezione='").append(classe.getSezione()).append("'")
 					.append("where idClasse=").append(classe.getIdClasse());
 		db.executeQuery(query.toString());
 	}
 
 	@Override
-	public void deleteClass(Classe classe) throws ClassNotFoundException, SQLException {
+	public void deleteClasse(Classe classe) throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
 		query.append("delete from classi where idClasse=")
