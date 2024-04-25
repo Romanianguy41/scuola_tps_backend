@@ -14,29 +14,12 @@ public class StudenteService {
 
 	public static ArrayList<Studente> getStudents() throws ClassNotFoundException, SQLException {
 		ArrayList<Studente> studenti = StudenteManager.getStudents();
-		
-		for(int i = 0; i < studenti.size(); i++) {
-			StringBuilder searchClasse = new StringBuilder();
-			searchClasse.append("idClasse:");
-			searchClasse.append(studenti.get(i).getClasse().getIdClasse());
-			Classe classe = ClasseManager.getClasses(searchClasse.toString()).get(0);
-			studenti.get(i).setClasse(classe);
-		}
-		
+	
 		return studenti;
 	}
 	
 	public static ArrayList<Studente> getStudents(String search) throws ClassNotFoundException, SQLException {
-		ArrayList<Studente> studenti = StudenteManager.getStudents(search);
-		
-		for(int i = 0; i < studenti.size(); i++) {
-			StringBuilder searchClasse = new StringBuilder();
-			searchClasse.append("idClasse:");
-			searchClasse.append(studenti.get(i).getClasse().getIdClasse());
-			Classe classe = ClasseManager.getClasses(searchClasse.toString()).get(0);
-			studenti.get(i).setClasse(classe);
-		}
-		return studenti;
+		return  StudenteManager.getStudents(search);
 	}
 	
 	public static String updateStudent(String userRequest) throws ClassNotFoundException, SQLException{

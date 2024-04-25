@@ -1,6 +1,8 @@
 package dascalu.scuola.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Professore {
@@ -9,29 +11,35 @@ public class Professore {
 	String cognome;
 	String codiceFiscale;
 	String luogoNascita;
-	LocalDate dataNascita;
+	Date dataNascita;
 	String email;
 	String numeroTelefono;
 	String indirizzo;
 	String cittadinanza;
 	int CAP;
-	int rifClasse;
+	ArrayList<ClasseMateria> insegna;
 	
 	public Professore(int idProfessore, String nome, String cognome, String codiceFiscale, String luogoNascita,
-			LocalDate dataNascita, String indirizzo, String cittadinanza, int CAP, int rifClasse, String email,
-			String numeroTelefono) {
+			Date dataNascita, String indirizzo, String cittadinanza, int CAP, String email,
+			String numeroTelefono,ArrayList<ClasseMateria> insegna) {
 		this.idProfessore = idProfessore;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.codiceFiscale = codiceFiscale;
 		this.luogoNascita = luogoNascita;
-		this.dataNascita = LocalDate.from(dataNascita);
+		this.dataNascita = dataNascita;
 		this.email = email;
 		this.numeroTelefono = numeroTelefono;
 		this.indirizzo = indirizzo;
 		this.cittadinanza = cittadinanza;
 		this.CAP = CAP;
-		this.rifClasse = rifClasse;
+		this.insegna = new ArrayList<ClasseMateria>();
+		this.insegna = insegna;
+	}
+	
+	public Professore(int idProfessore) {
+		this.idProfessore = idProfessore;
+		this.insegna = new ArrayList<ClasseMateria>();
 	}
 	
 	public int getIdProfessore() {
@@ -64,11 +72,11 @@ public class Professore {
 	public void setLuogoNascita(String luogoNascita) {
 		this.luogoNascita = luogoNascita;
 	}
-	public LocalDate getDataNascita() {
+	public Date getDataNascita() {
 		return dataNascita;
 	}
-	public void setDataNascita(LocalDate dataNascita) {
-		this.dataNascita = LocalDate.from(dataNascita);
+	public void setDataNascita(Date dataNascita) {
+		this.dataNascita = dataNascita;
 	}
 	public String getIndirizzo() {
 		return indirizzo;
@@ -88,13 +96,6 @@ public class Professore {
 	public void setCAP(int CAP) {
 		this.CAP = CAP;
 	}
-	public int getRifClasse() {
-		return rifClasse;
-	}
-	public void setRifClasse(int rifClasse) {
-		this.rifClasse = rifClasse;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -109,6 +110,14 @@ public class Professore {
 
 	public void setNumeroTelefono(String numeroTelefono) {
 		this.numeroTelefono = numeroTelefono;
+	}
+
+	public ArrayList<ClasseMateria> getInsegna() {
+		return insegna;
+	}
+
+	public void setInsegna(ArrayList<ClasseMateria> insegna) {
+		this.insegna = insegna;
 	}
 
 	@Override
@@ -153,8 +162,6 @@ public class Professore {
 		builder.append(cittadinanza);
 		builder.append(", CAP=");
 		builder.append(CAP);
-		builder.append(", rifClasse=");
-		builder.append(rifClasse);
 		builder.append("]");
 		return builder.toString();
 	}

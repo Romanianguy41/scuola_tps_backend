@@ -1,19 +1,29 @@
 package dascalu.scuola.models;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Classe {
 	int idClasse;
 	int classe;
 	String sezione;
+	ArrayList<ProfessoreMateria> professori;
 	
 	
-	public Classe(int idClasse, int classe, String sezione) {
+	public Classe(int idClasse, int classe, String sezione, ArrayList<ProfessoreMateria> professori) {
 		this.idClasse = idClasse;
 		this.classe = classe;
 		this.sezione = sezione;
+		this.professori = new ArrayList<ProfessoreMateria>();
+		this.professori = professori; 
 	}
 	
+	public Classe(int idClasse) {
+		this.idClasse = idClasse;
+		this.professori = new ArrayList<ProfessoreMateria>();
+	}
+	
+
 	public int getIdClasse() {
 		return idClasse;
 	}
@@ -31,6 +41,14 @@ public class Classe {
 	}
 	public void setSezione(String sezione) {
 		this.sezione = sezione;
+	}
+	
+	public ArrayList<ProfessoreMateria> getProfessori() {
+		return professori;
+	}
+
+	public void setProfessori(ArrayList<ProfessoreMateria> professori) {
+		this.professori = professori;
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class StudenteRepository implements studenteInterface {
 							   res.getInt("CAP"),
 							   res.getString("email"),
 							   res.getString("numeroTelefono"),
-							   new Classe(res.getInt("rifClasse"), -1, null)
+							   new Classe(res.getInt("rifClasse"))
 							)
 					);
 		}
@@ -71,7 +71,7 @@ public class StudenteRepository implements studenteInterface {
 							   res.getInt("CAP"),
 							   res.getString("email"),
 							   res.getString("numeroTelefono"),
-							   new Classe(res.getInt("rifClasse"), -1, null)
+							   new Classe(res.getInt("rifClasse"))
 							)
 					);
 		}
