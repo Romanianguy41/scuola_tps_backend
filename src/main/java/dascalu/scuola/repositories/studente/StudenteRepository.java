@@ -18,7 +18,7 @@ public class StudenteRepository implements studenteInterface {
 		StringBuilder query = new StringBuilder();
 		query.append("Select idStudente, nome, cognome, codFiscale, luogoNascita, ")
 					.append("dataNascita, indirizzo, email, numeroTelefono, CAP, rifClasse, ")
-					.append("cittadinanza")
+					.append("cittadinanza ")
 					.append("from studenti");
 		ResultSet res = db.executeQuery(query.toString());
 		while(res.next()) {
@@ -48,11 +48,11 @@ public class StudenteRepository implements studenteInterface {
 		ArrayList<Studente> studenti = new ArrayList<Studente>();
 		StringBuilder query = new StringBuilder();
 		query.append("Select idStudente, nome, cognome, codFiscale, luogoNascita, ")
-			 .append("dataNascita, indirizzo, email, numeroTelefono, CAP, rifClasse ")
-			 .append("cittadinanza")
-			 .append("from studenti");
+			 .append("dataNascita, indirizzo, email, numeroTelefono, CAP, rifClasse, ")
+			 .append("cittadinanza ")
+			 .append("from studenti ");
+		
 		String specificationResult = Specification.convertToSQL(search);
-		System.out.println(specificationResult.equals(""));
 		if(!(specificationResult.equals(""))) {
 			query.append("Where ").append(specificationResult)
 				 .append(";");
@@ -93,9 +93,8 @@ public class StudenteRepository implements studenteInterface {
 			 .append(" CAP=").append(student.getCAP()).append(",")
 			 .append(" rifClasse=").append(student.getClasse().getIdClasse()).append(",")
 			 .append(" email='").append(student.getEmail()).append("',")
-			 .append(" numeroTelefono='").append(student.getNumeroTelefono()).append("',")
+			 .append(" numeroTelefono='").append(student.getNumeroTelefono()).append("' ")
 			 .append("where idStudente=").append(student.getIdStudente());
-		System.out.println(query.toString());
 		db.executeQuery(query.toString());
 
 	}
@@ -114,9 +113,9 @@ public class StudenteRepository implements studenteInterface {
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
 		query.append("Insert into studenti ( nome, cognome, codFiscale, luogoNascita, indirizzo, ")
-			 .append("cittadinanza, CAP, rifClasse, email, numeroTelefono")
-			 .append("values(")
-			 .append(student.getNome()).append(", '")
+			 .append("cittadinanza, CAP, rifClasse, email, dataNascita, numeroTelefono ) ")
+			 .append("values('")
+			 .append(student.getNome()).append("', '")
 			 .append(student.getCognome()).append("','")
 			 .append(student.getCodiceFiscale()).append("','")
 			 .append(student.getLuogoNascita()).append("','")
@@ -125,6 +124,7 @@ public class StudenteRepository implements studenteInterface {
 			 .append(student.getCAP()).append(",")
 			 .append(student.getClasse().getIdClasse()).append(",'")
 			 .append(student.getEmail()).append("','")
+			 .append(student.getDataNascita()).append("','")
 			 .append(student.getNumeroTelefono()).append("');");
 		db.executeQuery(query.toString());
 

@@ -7,7 +7,6 @@ import com.cedarsoftware.io.JsonIo;
 
 import dascalu.scuola.manager.ClasseManager;
 import dascalu.scuola.models.Classe;
-import jakarta.json.Json;
 
 public class ClasseService {
 

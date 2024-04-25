@@ -37,7 +37,6 @@ public class ClasseRepository implements ClasseInterface {
 					.append("from classi ");
 					
 		String specificationResult = Specification.convertToSQL(search);
-		System.out.println(specificationResult.equals(""));
 		if(!(specificationResult.equals(""))) {
 			query.append("Where ").append(specificationResult)
 					.append(";");			
