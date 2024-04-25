@@ -7,23 +7,22 @@ public class Classe {
 	int idClasse;
 	int classe;
 	String sezione;
-	ArrayList<ProfessoreMateria> professori;
+	ArrayList <ProfessoreMateria> docenti;
 	
 	
-	public Classe(int idClasse, int classe, String sezione, ArrayList<ProfessoreMateria> professori) {
+	public Classe(int idClasse, int classe, String sezione, ArrayList <ProfessoreMateria> docenti) {
 		this.idClasse = idClasse;
 		this.classe = classe;
 		this.sezione = sezione;
-		this.professori = new ArrayList<ProfessoreMateria>();
-		this.professori = professori; 
+		this.docenti = new ArrayList<ProfessoreMateria>();
+		this.docenti = docenti;
 	}
 	
 	public Classe(int idClasse) {
 		this.idClasse = idClasse;
-		this.professori = new ArrayList<ProfessoreMateria>();
+		this.docenti = new ArrayList<ProfessoreMateria>();
 	}
 	
-
 	public int getIdClasse() {
 		return idClasse;
 	}
@@ -43,12 +42,12 @@ public class Classe {
 		this.sezione = sezione;
 	}
 	
-	public ArrayList<ProfessoreMateria> getProfessori() {
-		return professori;
+	public ArrayList<ProfessoreMateria> getDocenti() {
+		return docenti;
 	}
 
-	public void setProfessori(ArrayList<ProfessoreMateria> professori) {
-		this.professori = professori;
+	public void setDocenti(ArrayList<ProfessoreMateria> docenti) {
+		this.docenti = docenti;
 	}
 
 	@Override
@@ -80,6 +79,8 @@ public class Classe {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 
 	
 	

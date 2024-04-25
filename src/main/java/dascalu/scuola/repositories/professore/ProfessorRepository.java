@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 import dascalu.common.MySqlConnector;
 import dascalu.common.Specification;
-import dascalu.scuola.models.Classe;
 import dascalu.scuola.models.Professore;
-import dascalu.scuola.models.Studente;
 import dascalu.scuola.models.ClasseMateria;
 
 public class ProfessorRepository implements ProfessoreInterface {
@@ -36,7 +34,7 @@ public class ProfessorRepository implements ProfessoreInterface {
 							   res.getInt("CAP"),
 							   res.getString("email"),
 							   res.getString("numeroTelefono"),
-							   new ArrayList<ClasseMateria> ()
+							   new ArrayList<ClasseMateria>()
 							)
 					);
 		}
@@ -72,7 +70,7 @@ public class ProfessorRepository implements ProfessoreInterface {
 							   res.getInt("CAP"),
 							   res.getString("email"),
 							   res.getString("numeroTelefono"),
-							   new ArrayList<ClasseMateria> ()
+							   new ArrayList<ClasseMateria>()
 							)
 					);
 		}

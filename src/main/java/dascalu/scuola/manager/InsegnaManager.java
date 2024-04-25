@@ -3,30 +3,46 @@ package dascalu.scuola.manager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dascalu.scuola.models.Classe;
 import dascalu.scuola.models.Insegna;
+import dascalu.scuola.models.Professore;
 import dascalu.scuola.repositories.insegna.InsegnaRepository;
 
 public class InsegnaManager {
 
-
-	public static ArrayList<Insegna> getInsegnaSoftLoad() throws ClassNotFoundException, SQLException{
-		return new InsegnaRepository().getInsegna();	
-	}
-	
-	public static ArrayList<Insegna> getInsegnaSoftLoad(String search) throws ClassNotFoundException, SQLException{
-		return new InsegnaRepository().getInsegna(search);
-	}
-	
 	public static ArrayList<Insegna> getInsegna() throws ClassNotFoundException, SQLException{
 		ArrayList<Insegna> insegna = new InsegnaRepository().getInsegna();
-		
-		return insegna ;
+		for(int i = 0; i < insegna.size(); i++) {
+			StringBuilder search = new StringBuilder();
+			search.append("idClasse:");
+			search.append(insegna.get(i).getClasse().getIdClasse());
+			Classe classe = ClasseManager.getClasses(search.toString()).get(0);
+			insegna.get(i).setClasse(classe);
+			search = new StringBuilder();
+			search.append("idProfessore:");
+			search.append(insegna.get(i).getProfessore().getIdProfessore());
+			Professore professore = ProfessoreManager.getProfessors(search.toString()).get(0);
+			insegna.get(i).setProfessore(professore);
+		}
+		return insegna;
 	}
 	
 	public static ArrayList<Insegna> getInsegna(String search) throws ClassNotFoundException, SQLException{
-		return new InsegnaRepository().getInsegna(search);
+		ArrayList<Insegna> insegna = new InsegnaRepository().getInsegna(search);
+		for(int i = 0; i < insegna.size(); i++) {
+			StringBuilder searchString = new StringBuilder();
+			searchString.append("idClasse:");
+			searchString.append(insegna.get(i).getClasse().getIdClasse());
+			Classe classe = ClasseManager.getClasses(searchString.toString()).get(0);
+			insegna.get(i).setClasse(classe);
+			searchString = new StringBuilder();
+			searchString.append("idProfessore:");
+			searchString.append(insegna.get(i).getProfessore().getIdProfessore());
+			Professore professore = ProfessoreManager.getProfessors(searchString.toString()).get(0);
+			insegna.get(i).setProfessore(professore);
+		}
+		return insegna;
 	}
-	
 	
 	public static void updateInsegna(Insegna classeProfessore) throws ClassNotFoundException, SQLException{
 		new InsegnaRepository().updateInsegna(classeProfessore);

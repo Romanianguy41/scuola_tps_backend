@@ -3,28 +3,36 @@ package dascalu.scuola.models;
 import java.util.Objects;
 
 public class ClasseMateria {
+
 	Classe classe;
 	String materia;
+	
 	public ClasseMateria(Classe classe, String materia) {
 		this.classe = classe;
 		this.materia = materia;
 	}
+
 	public Classe getClasse() {
 		return classe;
 	}
+
 	public void setClasse(Classe classe) {
 		this.classe = classe;
 	}
+
 	public String getMateria() {
 		return materia;
 	}
+
 	public void setMateria(String materia) {
 		this.materia = materia;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(classe, materia);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -36,6 +44,7 @@ public class ClasseMateria {
 		ClasseMateria other = (ClasseMateria) obj;
 		return Objects.equals(classe, other.classe) && Objects.equals(materia, other.materia);
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -46,6 +55,8 @@ public class ClasseMateria {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 }

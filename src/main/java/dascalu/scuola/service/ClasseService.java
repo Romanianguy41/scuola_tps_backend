@@ -7,15 +7,43 @@ import com.cedarsoftware.io.JsonIo;
 
 import dascalu.scuola.manager.ClasseManager;
 import dascalu.scuola.models.Classe;
+import dascalu.scuola.models.Insegna;
+import dascalu.scuola.models.ProfessoreMateria;
 
 public class ClasseService {
 
 	public static ArrayList<Classe> getClasses() throws ClassNotFoundException, SQLException {
-		return ClasseManager.getClasses();
+		ArrayList<Classe> classi = ClasseManager.getClasses();
+		StringBuilder searchString = new StringBuilder(); 
+		for(Classe classe : classi) {
+			searchString = new StringBuilder();
+			searchString.append("rifClasse:")
+						.append(classe.getIdClasse());
+			ArrayList<Insegna> insegna = InsegnaService.getInsegna(searchString.toString());
+			for(Insegna elementoInsegna : insegna) {
+				classe.getDocenti().add(new ProfessoreMateria(elementoInsegna.getProfessore(),
+										elementoInsegna.getMateria()));
+			}
+		}
+		
+		return classi;
 	}
 	
 	public static ArrayList<Classe> getClasses(String search) throws ClassNotFoundException, SQLException {
-		return ClasseManager.getClasses(search);
+		ArrayList<Classe> classi = ClasseManager.getClasses(search);
+		StringBuilder searchString = new StringBuilder(); 
+		for(Classe classe : classi) {
+			searchString = new StringBuilder();
+			searchString.append("rifClasse:")
+						.append(classe.getIdClasse());
+			ArrayList<Insegna> insegna = InsegnaService.getInsegna(searchString.toString());
+			for(Insegna elementoInsegna : insegna) {
+				classe.getDocenti().add(new ProfessoreMateria(elementoInsegna.getProfessore(),
+										elementoInsegna.getMateria()));
+			}
+		}
+		
+		return classi;
 	}
 	
 	public static String updateClass(String userRequest) throws ClassNotFoundException, SQLException{

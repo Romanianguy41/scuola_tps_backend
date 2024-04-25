@@ -4,15 +4,26 @@ import java.util.Objects;
 
 public class Insegna {
 
+	int idInsegna;
 	Classe classe;
 	Professore professore;
 	String materia;
 	
-	public Insegna(Classe classe, Professore professore, String materia) {
+	public Insegna(int idInsegna, Classe classe, Professore professore, String materia) {
+		this.idInsegna = idInsegna;
 		this.classe = classe;
 		this.professore = professore;
 		this.materia = materia;
 	}
+	
+	public int getIdInsegna() {
+		return idInsegna;
+	}
+
+	public void setIdInsegna(int idInsegna) {
+		this.idInsegna = idInsegna;
+	}
+
 	public Classe getClasse() {
 		return classe;
 	}
@@ -31,11 +42,12 @@ public class Insegna {
 	public void setMateria(String materia) {
 		this.materia = materia;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(classe, materia, professore);
+		return Objects.hash(classe, idInsegna, materia, professore);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -45,13 +57,16 @@ public class Insegna {
 		if (getClass() != obj.getClass())
 			return false;
 		Insegna other = (Insegna) obj;
-		return Objects.equals(classe, other.classe) && Objects.equals(materia, other.materia)
-				&& Objects.equals(professore, other.professore);
+		return Objects.equals(classe, other.classe) && idInsegna == other.idInsegna
+				&& Objects.equals(materia, other.materia) && Objects.equals(professore, other.professore);
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ClasseProfessore [classe=");
+		builder.append("Insegna [idInsegna=");
+		builder.append(idInsegna);
+		builder.append(", classe=");
 		builder.append(classe);
 		builder.append(", professore=");
 		builder.append(professore);
@@ -60,6 +75,8 @@ public class Insegna {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 	

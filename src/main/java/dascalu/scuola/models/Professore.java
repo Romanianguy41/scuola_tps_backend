@@ -1,7 +1,6 @@
 package dascalu.scuola.models;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -21,7 +20,7 @@ public class Professore {
 	
 	public Professore(int idProfessore, String nome, String cognome, String codiceFiscale, String luogoNascita,
 			Date dataNascita, String indirizzo, String cittadinanza, int CAP, String email,
-			String numeroTelefono,ArrayList<ClasseMateria> insegna) {
+			String numeroTelefono, ArrayList<ClasseMateria> insegna) {
 		this.idProfessore = idProfessore;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -111,6 +110,7 @@ public class Professore {
 	public void setNumeroTelefono(String numeroTelefono) {
 		this.numeroTelefono = numeroTelefono;
 	}
+	
 
 	public ArrayList<ClasseMateria> getInsegna() {
 		return insegna;
@@ -162,9 +162,13 @@ public class Professore {
 		builder.append(cittadinanza);
 		builder.append(", CAP=");
 		builder.append(CAP);
+		builder.append(", insegna=");
+		builder.append(insegna);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 
 	
 	

@@ -6,17 +6,44 @@ import java.util.ArrayList;
 import com.cedarsoftware.io.JsonIo;
 
 import dascalu.scuola.manager.ProfessoreManager;
+import dascalu.scuola.models.ClasseMateria;
+import dascalu.scuola.models.Insegna;
 import dascalu.scuola.models.Professore;
-import dascalu.scuola.models.Studente;
 
 
 public class ProfessoreService {
 	public static ArrayList<Professore> getProfessors() throws ClassNotFoundException, SQLException{
-		return ProfessoreManager.getProfessors();
+		ArrayList<Professore> professori = ProfessoreManager.getProfessors();
+		StringBuilder searchString = new StringBuilder(); 
+		for(Professore professore : professori) {
+			searchString = new StringBuilder();
+			searchString.append("rifProfessore:")
+						.append(professore.getIdProfessore());
+			ArrayList<Insegna> insegna = InsegnaService.getInsegna(searchString.toString());
+			for(Insegna elementoInsegna : insegna) {
+				professore.getInsegna().add(new ClasseMateria(elementoInsegna.getClasse(),
+										elementoInsegna.getMateria()));
+			}
+		}
+		
+		return professori;
 	}
 	
 	public static ArrayList<Professore> getProfessors(String search) throws ClassNotFoundException, SQLException{
-		return ProfessoreManager.getProfessors(search);
+		ArrayList<Professore> professori = ProfessoreManager.getProfessors(search);
+		StringBuilder searchString = new StringBuilder(); 
+		for(Professore professore : professori) {
+			searchString = new StringBuilder();
+			searchString.append("rifProfessore:")
+						.append(professore.getIdProfessore());
+			ArrayList<Insegna> insegna = InsegnaService.getInsegna(searchString.toString());
+			for(Insegna elementoInsegna : insegna) {
+				professore.getInsegna().add(new ClasseMateria(elementoInsegna.getClasse(),
+										elementoInsegna.getMateria()));
+			}
+		}
+		
+		return professori;
 		
 	}
 	

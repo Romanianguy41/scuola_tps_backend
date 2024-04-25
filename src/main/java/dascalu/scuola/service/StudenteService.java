@@ -5,9 +5,7 @@ import java.util.ArrayList;
 
 import com.cedarsoftware.io.JsonIo;
 
-import dascalu.scuola.manager.ClasseManager;
 import dascalu.scuola.manager.StudenteManager;
-import dascalu.scuola.models.Classe;
 import dascalu.scuola.models.Studente;
 
 public class StudenteService {

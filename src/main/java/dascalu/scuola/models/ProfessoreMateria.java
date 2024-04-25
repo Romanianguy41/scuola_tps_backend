@@ -3,8 +3,10 @@ package dascalu.scuola.models;
 import java.util.Objects;
 
 public class ProfessoreMateria {
+
 	Professore professore;
 	String materia;
+	
 	public ProfessoreMateria(Professore professore, String materia) {
 		this.professore = professore;
 		this.materia = materia;
@@ -21,6 +23,7 @@ public class ProfessoreMateria {
 	public void setMateria(String materia) {
 		this.materia = materia;
 	}
+	
 	
 	@Override
 	public int hashCode() {
@@ -47,5 +50,6 @@ public class ProfessoreMateria {
 		builder.append("]");
 		return builder.toString();
 	}
+	
 	
 }

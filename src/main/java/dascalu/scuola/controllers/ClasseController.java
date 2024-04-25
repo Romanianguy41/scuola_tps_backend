@@ -2,13 +2,12 @@ package dascalu.scuola.controllers;
 
 
 import java.sql.SQLException;
-import java.util.List;
 
 import com.cedarsoftware.io.JsonIo;
 import com.cedarsoftware.io.WriteOptionsBuilder;
 
-import dascalu.scuola.models.Classe;
 import dascalu.scuola.service.ClasseService;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -23,16 +22,27 @@ import jakarta.ws.rs.core.MediaType;
 @Path("classe")
 public class ClasseController {
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Classe> getClassi() throws ClassNotFoundException, SQLException {
-		return ClasseService.getClasses();
+	@JsonbTransient
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getClassi() throws ClassNotFoundException, SQLException {
+		//return "rizzo";
+		return JsonIo.toJson(ClasseService.getClasses(), new WriteOptionsBuilder()
+		.prettyPrint(true) 
+		.showTypeInfoNever()
+		.build()
+		);
 	}
 	
 	@GET
+	@JsonbTransient
 	@Path("filter")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Classe> getClassi(@QueryParam("search") String search) throws ClassNotFoundException, SQLException {
-		return ClasseService.getClasses(search);	
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getClassi(@QueryParam("search") String search) throws ClassNotFoundException, SQLException {
+		return JsonIo.toJson(ClasseService.getClasses(search), new WriteOptionsBuilder()
+    			.prettyPrint(true) 
+    			.showTypeInfoNever()
+    			.build()
+    			);
 	}
 	
 	@POST
