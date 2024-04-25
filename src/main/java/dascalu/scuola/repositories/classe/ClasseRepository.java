@@ -42,9 +42,6 @@ public class ClasseRepository implements ClasseInterface {
 			query.append("Where ").append(specificationResult)
 					.append(";");			
 		}
-		System.out.println(specificationResult);
-		System.out.println("\n");
-		System.out.println(query.toString());
 		ResultSet res = db.executeQuery(query.toString());
 		while(res.next()) {
 			classi.add(
@@ -64,15 +61,16 @@ public class ClasseRepository implements ClasseInterface {
 		query.append("update classi set classe=").append(classe.getClasse() )
 					.append(",sezione='").append(classe.getSezione()).append("'")
 					.append("where idClasse=").append(classe.getIdClasse());
+		System.out.println(query.toString());
 		db.executeQuery(query.toString());
 	}
 
 	@Override
-	public void deleteClasse(Classe classe) throws ClassNotFoundException, SQLException {
+	public void deleteClasse(String idClasse) throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
 		query.append("delete from classi where idClasse=")
-			.append(classe.getIdClasse());
+			.append(idClasse);
 		db.executeQuery(query.toString());
 		
 	}
@@ -85,7 +83,6 @@ public class ClasseRepository implements ClasseInterface {
 		query.append("values(");
 		query.append(classe.getClasse()).append(", '");
 		query.append(classe.getSezione()).append("');");
-		System.out.println(query.toString());
 		db.executeQuery(query.toString());
 	}
 }

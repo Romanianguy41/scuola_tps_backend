@@ -20,8 +20,8 @@ public class ClasseManager {
 		new ClasseRepository().updateClasse(classe);
 	}
 	
-	public static void deleteClasse(Classe classe) throws ClassNotFoundException, SQLException{
-		new ClasseRepository().deleteClasse(classe);
+	public static void deleteClasse(String idClasse) throws ClassNotFoundException, SQLException{
+		new ClasseRepository().deleteClasse(idClasse);
 	} 
 	
 	public static void createClasse(Classe classe) throws ClassNotFoundException, SQLException{

@@ -13,7 +13,7 @@ public interface ClasseInterface {
 	
 	void updateClasse(Classe classe) throws ClassNotFoundException, SQLException;
 	
-	void deleteClasse(Classe classe) throws ClassNotFoundException, SQLException;
+	void deleteClasse(String idClasse) throws ClassNotFoundException, SQLException;
 	
 	void createClasse(Classe classe) throws ClassNotFoundException, SQLException;
 	
