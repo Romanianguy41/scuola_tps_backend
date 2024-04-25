@@ -39,20 +39,20 @@ public class ClasseController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String createClasse(String userRequest) throws ClassNotFoundException, SQLException {
-		return ClasseService.createClasse(userRequest);
+		return ClasseService.createClass(userRequest);
 	}
 	
 	@DELETE
 	@Path("{idClasse}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String deleteClasse(@PathParam("idClasse") String id) throws ClassNotFoundException, SQLException {
-		return ClasseService.deleteClasse(id);
+		return ClasseService.deleteClass(id);
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String updateClasse(String userRequest) throws ClassNotFoundException, SQLException{
-		return ClasseService.updateClasse(userRequest);
+		return ClasseService.updateClass(userRequest);
 	}
 }

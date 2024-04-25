@@ -35,7 +35,7 @@ public class Classe {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(classe, idClasse, sezione);
+		return Objects.hash(idClasse);
 	}
 
 	@Override
@@ -47,13 +47,22 @@ public class Classe {
 		if (getClass() != obj.getClass())
 			return false;
 		Classe other = (Classe) obj;
-		return classe == other.classe && idClasse == other.idClasse && Objects.equals(sezione, other.sezione);
+		return idClasse == other.idClasse;
 	}
 
 	@Override
 	public String toString() {
-		return "Classe [idClasse=" + idClasse + ", classe=" + classe + ", sezione=" + sezione + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Classe [idClasse=");
+		builder.append(idClasse);
+		builder.append(", classe=");
+		builder.append(classe);
+		builder.append(", sezione=");
+		builder.append(sezione);
+		builder.append("]");
+		return builder.toString();
 	}
+
 	
 	
 	

@@ -19,21 +19,21 @@ public class ClasseService {
 		return ClasseManager.getClasses(search);
 	}
 	
-	public static String updateClasse(String userRequest) throws ClassNotFoundException, SQLException{
+	public static String updateClass(String userRequest) throws ClassNotFoundException, SQLException{
 		Classe classe = JsonIo.toObjects(userRequest, null, Classe.class);
-		ClasseManager.updateClasse(classe);
+		ClasseManager.updateClass(classe);
 		return "Done";
 	}
 	
-	public static String deleteClasse(String idClasse) throws ClassNotFoundException, SQLException{
-		ClasseManager.deleteClasse(idClasse);
+	public static String deleteClass(String idClasse) throws ClassNotFoundException, SQLException{
+		ClasseManager.deleteClass(idClasse);
 		return "Done";
 	} 
 	
-	public static String createClasse(String userRequest) throws ClassNotFoundException, SQLException{
+	public static String createClass(String userRequest) throws ClassNotFoundException, SQLException{
 		
 		Classe classe = JsonIo.toObjects(userRequest, null, Classe.class);
-		ClasseManager.createClasse(classe);
+		ClasseManager.createClass(classe);
 		return "Done";
 	} 
 

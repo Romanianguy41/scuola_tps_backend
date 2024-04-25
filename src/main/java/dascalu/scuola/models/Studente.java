@@ -1,5 +1,6 @@
 package dascalu.scuola.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -9,24 +10,30 @@ public class Studente {
 	String cognome;
 	String codiceFiscale;
 	String luogoNascita;
-	LocalDate dataNascita;
+	Date dataNascita;
+	String email;
+	String numeroTelefono;
 	String indirizzo;
 	String cittadinanza;
 	int CAP;
-	int rifClasse;
+	Classe classe;
+
 	
 	public Studente(int idStudente, String nome, String cognome, String codiceFiscale, String luogoNascita,
-			LocalDate dataNascita, String indirizzo, String cittadinanza, int CAP, int rifClasse) {
+			Date dataNascita, String indirizzo, String cittadinanza, int CAP, String email,
+			String numeroTelefono, Classe classe) {
 		this.idStudente = idStudente;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.codiceFiscale = codiceFiscale;
 		this.luogoNascita = luogoNascita;
-		this.dataNascita = LocalDate.from(dataNascita);
+		this.dataNascita = dataNascita;
+		this.email = email;
+		this.numeroTelefono = numeroTelefono;
 		this.indirizzo = indirizzo;
 		this.cittadinanza = cittadinanza;
 		this.CAP = CAP;
-		this.rifClasse = rifClasse;
+		this.classe = classe;
 	}
 	
 	public int getIdStudente() {
@@ -59,11 +66,11 @@ public class Studente {
 	public void setLuogoNascita(String luogoNascita) {
 		this.luogoNascita = luogoNascita;
 	}
-	public LocalDate getDataNascita() {
+	public Date getDataNascita() {
 		return dataNascita;
 	}
-	public void setDataNascita(LocalDate dataNascita) {
-		this.dataNascita = LocalDate.from(dataNascita);
+	public void setDataNascita(Date dataNascita) {
+		this.dataNascita = dataNascita;
 	}
 	public String getIndirizzo() {
 		return indirizzo;
@@ -83,17 +90,32 @@ public class Studente {
 	public void setCAP(int CAP) {
 		this.CAP = CAP;
 	}
-	public int getRifClasse() {
-		return rifClasse;
+	public Classe getClasse() {
+		return classe;
 	}
-	public void setRifClasse(int rifClasse) {
-		this.rifClasse = rifClasse;
+	public void setClasse(Classe classe) {
+		this.classe = classe;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNumeroTelefono() {
+		return numeroTelefono;
+	}
+
+	public void setNumeroTelefono(String numeroTelefono) {
+		this.numeroTelefono = numeroTelefono;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(CAP, cittadinanza, codiceFiscale, cognome, dataNascita, idStudente, indirizzo, luogoNascita,
-				nome, rifClasse);
+		return Objects.hash(idStudente);
 	}
 
 	@Override
@@ -105,19 +127,41 @@ public class Studente {
 		if (getClass() != obj.getClass())
 			return false;
 		Studente other = (Studente) obj;
-		return CAP == other.CAP && Objects.equals(cittadinanza, other.cittadinanza)
-				&& Objects.equals(codiceFiscale, other.codiceFiscale) && Objects.equals(cognome, other.cognome)
-				&& Objects.equals(dataNascita, other.dataNascita) && idStudente == other.idStudente
-				&& Objects.equals(indirizzo, other.indirizzo) && Objects.equals(luogoNascita, other.luogoNascita)
-				&& Objects.equals(nome, other.nome) && rifClasse == other.rifClasse;
+		return idStudente == other.idStudente;
 	}
 
 	@Override
 	public String toString() {
-		return "Studente [idStudente=" + idStudente + ", nome=" + nome + ", cognome=" + cognome + ", codiceFiscale="
-				+ codiceFiscale + ", luogoNascita=" + luogoNascita + ", dataNascita=" + dataNascita + ", indirizzo="
-				+ indirizzo + ", cittadinanza=" + cittadinanza + ", CAP=" + CAP + ", rifClasse=" + rifClasse + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Studente [idStudente=");
+		builder.append(idStudente);
+		builder.append(", nome=");
+		builder.append(nome);
+		builder.append(", cognome=");
+		builder.append(cognome);
+		builder.append(", codiceFiscale=");
+		builder.append(codiceFiscale);
+		builder.append(", luogoNascita=");
+		builder.append(luogoNascita);
+		builder.append(", dataNascita=");
+		builder.append(dataNascita);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", numeroTelefono=");
+		builder.append(numeroTelefono);
+		builder.append(", indirizzo=");
+		builder.append(indirizzo);
+		builder.append(", cittadinanza=");
+		builder.append(cittadinanza);
+		builder.append(", CAP=");
+		builder.append(CAP);
+		builder.append(", rifClasse=");
+		builder.append(classe);
+		builder.append("]");
+		return builder.toString();
 	}
+
+	
 	
 	
 

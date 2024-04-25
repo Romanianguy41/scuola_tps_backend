@@ -55,18 +55,17 @@ public class ClasseRepository implements ClasseInterface {
 	}
 
 	@Override
-	public void updateClasse(Classe classe) throws ClassNotFoundException, SQLException {
+	public void updateClass(Classe classe) throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
 		query.append("update classi set classe=").append(classe.getClasse() )
 					.append(",sezione='").append(classe.getSezione()).append("'")
 					.append("where idClasse=").append(classe.getIdClasse());
-		System.out.println(query.toString());
 		db.executeQuery(query.toString());
 	}
 
 	@Override
-	public void deleteClasse(String idClasse) throws ClassNotFoundException, SQLException {
+	public void deleteClass(String idClasse) throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
 		query.append("delete from classi where idClasse=")
@@ -76,13 +75,13 @@ public class ClasseRepository implements ClasseInterface {
 	}
 
 	@Override
-	public void createClasse(Classe classe) throws ClassNotFoundException, SQLException {
+	public void createClass(Classe classe) throws ClassNotFoundException, SQLException {
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
-		query.append("Insert into classi ( classe, sezione) ");
-		query.append("values(");
-		query.append(classe.getClasse()).append(", '");
-		query.append(classe.getSezione()).append("');");
+		query.append("Insert into classi ( classe, sezione) ")
+			 .append("values(")
+			 .append(classe.getClasse()).append(", '")
+			 .append(classe.getSezione()).append("');");
 		db.executeQuery(query.toString());
 	}
 }

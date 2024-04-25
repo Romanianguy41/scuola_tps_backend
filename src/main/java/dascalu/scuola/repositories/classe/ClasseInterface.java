@@ -11,11 +11,11 @@ public interface ClasseInterface {
 	
 	ArrayList<Classe> getClasses(String search) throws ClassNotFoundException, SQLException;
 	
-	void updateClasse(Classe classe) throws ClassNotFoundException, SQLException;
+	void updateClass(Classe classe) throws ClassNotFoundException, SQLException;
 	
-	void deleteClasse(String idClasse) throws ClassNotFoundException, SQLException;
+	void deleteClass(String idClasse) throws ClassNotFoundException, SQLException;
 	
-	void createClasse(Classe classe) throws ClassNotFoundException, SQLException;
+	void createClass(Classe classe) throws ClassNotFoundException, SQLException;
 	
 
 	

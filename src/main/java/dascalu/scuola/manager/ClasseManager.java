@@ -16,16 +16,16 @@ public class ClasseManager {
 		return new ClasseRepository().getClasses(search);
 	}
 	
-	public static void updateClasse(Classe classe) throws ClassNotFoundException, SQLException{
-		new ClasseRepository().updateClasse(classe);
+	public static void updateClass(Classe classe) throws ClassNotFoundException, SQLException{
+		new ClasseRepository().updateClass(classe);
 	}
 	
-	public static void deleteClasse(String idClasse) throws ClassNotFoundException, SQLException{
-		new ClasseRepository().deleteClasse(idClasse);
+	public static void deleteClass(String idClasse) throws ClassNotFoundException, SQLException{
+		new ClasseRepository().deleteClass(idClasse);
 	} 
 	
-	public static void createClasse(Classe classe) throws ClassNotFoundException, SQLException{
-		new ClasseRepository().createClasse(classe);
+	public static void createClass(Classe classe) throws ClassNotFoundException, SQLException{
+		new ClasseRepository().createClass(classe);
 	} 
 
 }

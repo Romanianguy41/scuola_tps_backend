@@ -10,19 +10,24 @@ public class Professore {
 	String codiceFiscale;
 	String luogoNascita;
 	LocalDate dataNascita;
+	String email;
+	String numeroTelefono;
 	String indirizzo;
 	String cittadinanza;
 	int CAP;
 	int rifClasse;
 	
 	public Professore(int idProfessore, String nome, String cognome, String codiceFiscale, String luogoNascita,
-			LocalDate dataNascita, String indirizzo, String cittadinanza, int CAP, int rifClasse) {
+			LocalDate dataNascita, String indirizzo, String cittadinanza, int CAP, int rifClasse, String email,
+			String numeroTelefono) {
 		this.idProfessore = idProfessore;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.codiceFiscale = codiceFiscale;
 		this.luogoNascita = luogoNascita;
 		this.dataNascita = LocalDate.from(dataNascita);
+		this.email = email;
+		this.numeroTelefono = numeroTelefono;
 		this.indirizzo = indirizzo;
 		this.cittadinanza = cittadinanza;
 		this.CAP = CAP;
@@ -90,10 +95,25 @@ public class Professore {
 		this.rifClasse = rifClasse;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNumeroTelefono() {
+		return numeroTelefono;
+	}
+
+	public void setNumeroTelefono(String numeroTelefono) {
+		this.numeroTelefono = numeroTelefono;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(CAP, cittadinanza, codiceFiscale, cognome, dataNascita, idProfessore, indirizzo,
-				luogoNascita, nome, rifClasse);
+		return Objects.hash(idProfessore);
 	}
 
 	@Override
@@ -105,21 +125,41 @@ public class Professore {
 		if (getClass() != obj.getClass())
 			return false;
 		Professore other = (Professore) obj;
-		return CAP == other.CAP && Objects.equals(cittadinanza, other.cittadinanza)
-				&& Objects.equals(codiceFiscale, other.codiceFiscale) && Objects.equals(cognome, other.cognome)
-				&& Objects.equals(dataNascita, other.dataNascita) && idProfessore == other.idProfessore
-				&& Objects.equals(indirizzo, other.indirizzo) && Objects.equals(luogoNascita, other.luogoNascita)
-				&& Objects.equals(nome, other.nome) && rifClasse == other.rifClasse;
+		return idProfessore == other.idProfessore;
 	}
 
 	@Override
 	public String toString() {
-		return "Professore [idProfessore=" + idProfessore + ", nome=" + nome + ", cognome=" + cognome
-				+ ", codiceFiscale=" + codiceFiscale + ", luogoNascita=" + luogoNascita + ", dataNascita=" + dataNascita
-				+ ", indirizzo=" + indirizzo + ", cittadinanza=" + cittadinanza + ", CAP=" + CAP + ", rifClasse="
-				+ rifClasse + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Professore [idProfessore=");
+		builder.append(idProfessore);
+		builder.append(", nome=");
+		builder.append(nome);
+		builder.append(", cognome=");
+		builder.append(cognome);
+		builder.append(", codiceFiscale=");
+		builder.append(codiceFiscale);
+		builder.append(", luogoNascita=");
+		builder.append(luogoNascita);
+		builder.append(", dataNascita=");
+		builder.append(dataNascita);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", numeroTelefono=");
+		builder.append(numeroTelefono);
+		builder.append(", indirizzo=");
+		builder.append(indirizzo);
+		builder.append(", cittadinanza=");
+		builder.append(cittadinanza);
+		builder.append(", CAP=");
+		builder.append(CAP);
+		builder.append(", rifClasse=");
+		builder.append(rifClasse);
+		builder.append("]");
+		return builder.toString();
 	}
 
+	
 	
 	
 }
