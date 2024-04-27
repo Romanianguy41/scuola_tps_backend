@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MySqlConnector {
-	private static final String URL = "jdbc:mysql://127.0.0.1/scuola_tps"; 
+	private static final String URL = "jdbc:mysql://127.0.0.1/tps_scuola"; 
 		private static final String USERNAME = "root";
 		private static final String PASSWORD = "";
 

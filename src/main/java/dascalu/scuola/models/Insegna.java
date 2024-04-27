@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Insegna {
 
-	int idInsegna;
+	Integer idInsegna;
 	Classe classe;
 	Professore professore;
 	String materia;

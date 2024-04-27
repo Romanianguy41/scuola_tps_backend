@@ -3,6 +3,7 @@ package dascalu.scuola.repositories.studente;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dascalu.common.MySqlConnector;
 import dascalu.scuola.models.Studente;
 
 public interface studenteInterface {
@@ -16,4 +17,6 @@ public interface studenteInterface {
 	void deleteStudent(String idStudente) throws ClassNotFoundException, SQLException;
 	
 	void createStudent(Studente Student) throws ClassNotFoundException, SQLException;
+	
+	public void removeStudentClass(Studente student) throws ClassNotFoundException, SQLException;
 }

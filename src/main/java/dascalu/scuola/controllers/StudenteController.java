@@ -19,36 +19,40 @@ import jakarta.ws.rs.core.MediaType;
 @Path("studente")
 public class StudenteController {
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Studente> getStudents() throws ClassNotFoundException, SQLException {
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getStudents() throws ClassNotFoundException, SQLException {
 		return StudenteService.getStudents();
 	}
 	
 	@GET
 	@Path("filter")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Studente> getStudents(@QueryParam("search") String search) throws ClassNotFoundException, SQLException {
+	public String getStudents(@QueryParam("search") String search) throws ClassNotFoundException, SQLException {
 		return StudenteService.getStudents(search);	
 	}
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public String createStudent(String userRequest) throws ClassNotFoundException, SQLException {
-		return StudenteService.createStudent(userRequest);
+	@Consumes(MediaType.TEXT_PLAIN)
+	public void createStudent(String userRequest) throws ClassNotFoundException, SQLException {
+		StudenteService.createStudent(userRequest);
 	}
 	
 	@DELETE
 	@Path("{idStudente}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteStudent(@PathParam("idStudente") String idStudente) throws ClassNotFoundException, SQLException {
-		return StudenteService.deleteStudent(idStudente);
+	public void deleteStudent(@PathParam("idStudente") String idStudente) throws ClassNotFoundException, SQLException {
+		StudenteService.deleteStudent(idStudente);
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public String updateStudents(String userRequest) throws ClassNotFoundException, SQLException{
-		return StudenteService.updateStudent(userRequest);
+	@Consumes(MediaType.TEXT_PLAIN)
+	public void updateStudents(String userRequest) throws ClassNotFoundException, SQLException{
+		StudenteService.updateStudent(userRequest);
+	}
+	
+	@PUT
+	@Path("classe")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public void removeStudentClass(String userRequest) throws ClassNotFoundException, SQLException{
+		StudenteService.removeStudentClass(userRequest);
 	}
 }

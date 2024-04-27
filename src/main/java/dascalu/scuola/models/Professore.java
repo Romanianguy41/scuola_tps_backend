@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Professore {
-	int idProfessore;
+	Integer idProfessore;
 	String nome;
 	String cognome;
 	String codiceFiscale;
@@ -15,7 +15,7 @@ public class Professore {
 	String numeroTelefono;
 	String indirizzo;
 	String cittadinanza;
-	int CAP;
+	Integer CAP;
 	ArrayList<ClasseMateria> insegna;
 	
 	public Professore(int idProfessore, String nome, String cognome, String codiceFiscale, String luogoNascita,

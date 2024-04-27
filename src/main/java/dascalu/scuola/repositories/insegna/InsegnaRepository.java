@@ -29,6 +29,8 @@ public class InsegnaRepository implements InsegnaInterface {
 							)
 					);
 		}
+		System.out.println("\n");
+		System.out.println("GET INSEGNA:\n eseguita con successo");
 		return classiProfessori;
 	}
 
@@ -54,6 +56,8 @@ public class InsegnaRepository implements InsegnaInterface {
 							)
 					);
 		}
+		System.out.println("\n");
+		System.out.println("GET INSEGNA, \nsearch:\n"+search+": eseguita con successo");
 		return classiProfessori;
 	}
 
@@ -66,6 +70,9 @@ public class InsegnaRepository implements InsegnaInterface {
 					.append("materia='").append(classeProfessore.getMateria()).append("' ")
 					.append("where idInsegna=").append(classeProfessore.getIdInsegna());
 		db.executeQuery(query.toString());
+		System.out.println("\n");
+		System.out.println("UPDATE INSEGNA:\n eseguita con successo");
+		
 	}
 
 	@Override
@@ -76,6 +83,9 @@ public class InsegnaRepository implements InsegnaInterface {
 			.append(classeProfessoreKey);
 		System.out.println(query);
 		db.executeQuery(query.toString());
+		System.out.println("\n");
+		System.out.println("DELETE INSEGNA:\n eseguita con successo");
+		
 
 	}
 
@@ -89,6 +99,8 @@ public class InsegnaRepository implements InsegnaInterface {
 			 .append(classeProfessore.getProfessore().getIdProfessore()).append(", '")
 			 .append(classeProfessore.getMateria()).append("');");
 		db.executeQuery(query.toString());
+		System.out.println("\n");
+		System.out.println("CREATE INSEGNA:\n eseguita con successo");
 
 	}
 

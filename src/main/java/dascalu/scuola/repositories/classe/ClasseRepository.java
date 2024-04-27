@@ -27,6 +27,8 @@ public class ClasseRepository implements ClasseInterface {
 							)
 					);
 		}
+		System.out.println("\n");
+		System.out.println("GET CLASSI:\n eseguita con successo");
 		return classi;
 	}
 
@@ -43,6 +45,7 @@ public class ClasseRepository implements ClasseInterface {
 			query.append("Where ").append(specificationResult)
 					.append(";");			
 		}
+		System.out.println(query);
 		ResultSet res = db.executeQuery(query.toString());
 		while(res.next()) {
 			classi.add(
@@ -53,6 +56,8 @@ public class ClasseRepository implements ClasseInterface {
 							)
 					);
 		}
+		System.out.println("\n");
+		System.out.println("GET CLASSI, \nsearch:\n"+search+": eseguita con successo");
 		return classi;
 	}
 
@@ -64,6 +69,8 @@ public class ClasseRepository implements ClasseInterface {
 					.append(",sezione='").append(classe.getSezione()).append("'")
 					.append("where idClasse=").append(classe.getIdClasse());
 		db.executeQuery(query.toString());
+		System.out.println("\n");
+		System.out.println("UPDATE CLASSE:\n eseguita con successo");
 	}
 
 	@Override
@@ -73,6 +80,8 @@ public class ClasseRepository implements ClasseInterface {
 		query.append("delete from classi where idClasse=")
 			.append(idClasse);
 		db.executeQuery(query.toString());
+		System.out.println("\n");
+		System.out.println("DELETE CLASSE:\n eseguita con successo");
 		
 	}
 
@@ -85,5 +94,8 @@ public class ClasseRepository implements ClasseInterface {
 			 .append(classe.getClasse()).append(", '")
 			 .append(classe.getSezione()).append("');");
 		db.executeQuery(query.toString());
+		System.out.println("\n");
+		System.out.println("CREATE CLASSE:\n eseguita con successo");
 	}
+
 }

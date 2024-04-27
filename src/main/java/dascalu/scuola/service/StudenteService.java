@@ -4,38 +4,49 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.cedarsoftware.io.JsonIo;
+import com.cedarsoftware.io.WriteOptionsBuilder;
 
+import dascalu.common.Utils;
 import dascalu.scuola.manager.StudenteManager;
 import dascalu.scuola.models.Studente;
+import dascalu.scuola.repositories.studente.StudenteRepository;
 
 public class StudenteService {
 
-	public static ArrayList<Studente> getStudents() throws ClassNotFoundException, SQLException {
-		ArrayList<Studente> studenti = StudenteManager.getStudents();
+	public static String getStudents() throws ClassNotFoundException, SQLException {
+		return JsonIo.toJson(StudenteManager.getStudents(), new WriteOptionsBuilder()
+				.prettyPrint(true) 
+				.showTypeInfoNever()
+				.build()
+				);
 	
-		return studenti;
 	}
 	
-	public static ArrayList<Studente> getStudents(String search) throws ClassNotFoundException, SQLException {
-		return  StudenteManager.getStudents(search);
+	public static String getStudents(String search) throws ClassNotFoundException, SQLException {
+		return  JsonIo.toJson(StudenteManager.getStudents(search), new WriteOptionsBuilder()
+				.prettyPrint(true) 
+				.showTypeInfoNever()
+				.build()
+				);
 	}
 	
-	public static String updateStudent(String userRequest) throws ClassNotFoundException, SQLException{
-		Studente studente = JsonIo.toObjects(userRequest, null, Studente.class);
+	public static void updateStudent(String userRequest) throws ClassNotFoundException, SQLException{
+		Studente studente = JsonIo.toObjects(Utils.convertDate(userRequest), null, Studente.class);
 		StudenteManager.updateStudent(studente);
-		return "Done";
 	}
 	
-	public static String deleteStudent(String idStudente) throws ClassNotFoundException, SQLException{
+	public static void deleteStudent(String idStudente) throws ClassNotFoundException, SQLException{
 		StudenteManager.deleteStudent(idStudente);
-		return "Done";
 	} 
 	
-	public static String createStudent(String userRequest) throws ClassNotFoundException, SQLException{
-		
-		Studente Studente = JsonIo.toObjects(userRequest, null, Studente.class);
-		StudenteManager.createStudent(Studente);
-		return "Done";
+	public static void createStudent(String userRequest) throws ClassNotFoundException, SQLException{
+		Studente studente = JsonIo.toObjects(Utils.convertDate(userRequest), null, Studente.class);
+		System.out.println(studente);
+		StudenteManager.createStudent(studente);
 	} 
 	
+	public static void removeStudentClass(String userRequest) throws ClassNotFoundException, SQLException{
+		Studente studente = JsonIo.toObjects(Utils.convertDate(userRequest), null, Studente.class);
+		StudenteManager.removeStudentClass(studente);
+	}
 }

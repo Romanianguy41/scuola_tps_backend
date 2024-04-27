@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Classe {
-	int idClasse;
-	int classe;
+	Integer idClasse;
+	Integer classe;
 	String sezione;
 	ArrayList <ProfessoreMateria> docenti;
 	
 	
-	public Classe(int idClasse, int classe, String sezione, ArrayList <ProfessoreMateria> docenti) {
+	public Classe(Integer idClasse, Integer classe, String sezione, ArrayList <ProfessoreMateria> docenti) {
 		this.idClasse = idClasse;
 		this.classe = classe;
 		this.sezione = sezione;
@@ -18,7 +18,7 @@ public class Classe {
 		this.docenti = docenti;
 	}
 	
-	public Classe(int idClasse) {
+	public Classe(Integer idClasse) {
 		this.idClasse = idClasse;
 		this.docenti = new ArrayList<ProfessoreMateria>();
 	}

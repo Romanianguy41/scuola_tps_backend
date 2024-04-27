@@ -38,6 +38,9 @@ public class ProfessorRepository implements ProfessoreInterface {
 							)
 					);
 		}
+		System.out.println("\n");
+		System.out.println("GET PROFESSORI:\n eseguita con successo");
+		
 		return professori;
 
 	}
@@ -74,6 +77,9 @@ public class ProfessorRepository implements ProfessoreInterface {
 							)
 					);
 		}
+		System.out.println("\n");
+		System.out.println("GET PROFESSORI, \nsearch:\n"+search+": eseguita con successo");
+		
 		return professori;
 
 	}
@@ -95,7 +101,9 @@ public class ProfessorRepository implements ProfessoreInterface {
 			 .append(" numeroTelefono='").append(professor.getNumeroTelefono()).append("' ")
 			 .append("where idprofessore=").append(professor.getIdProfessore());
 		db.executeQuery(query.toString());
-
+		System.out.println("\n");
+		System.out.println("UPDATE PROFESSORE:\n eseguita con successo");
+	
 	}
 
 	@Override
@@ -105,7 +113,9 @@ public class ProfessorRepository implements ProfessoreInterface {
 		query.append("delete from professori where idProfessore=")
 		.append(idProfessor);
 		db.executeQuery(query.toString());
-
+		System.out.println("\n");
+		System.out.println("DELETE PROFESSORE:\n eseguita con successo");
+		
 	}
 
 	@Override
@@ -127,6 +137,8 @@ public class ProfessorRepository implements ProfessoreInterface {
 			 .append(professor.getNumeroTelefono()).append("');");
 		System.out.println(query);
 		db.executeQuery(query.toString());
+		System.out.println("\n");
+		System.out.println("CREATE PROFESSORE:\n eseguita con successo");
 
 	}
 

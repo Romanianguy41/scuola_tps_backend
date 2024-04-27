@@ -4,17 +4,17 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class Studente {
-	int idStudente;
+	Integer idStudente;
 	String nome;
 	String cognome;
 	String codiceFiscale;
 	String luogoNascita;
 	Date dataNascita;
 	String email;
-	String numeroTelefono;
+	String telefono;
 	String indirizzo;
 	String cittadinanza;
-	int CAP;
+	Integer CAP;
 	Classe classe;
 
 	
@@ -28,7 +28,7 @@ public class Studente {
 		this.luogoNascita = luogoNascita;
 		this.dataNascita = dataNascita;
 		this.email = email;
-		this.numeroTelefono = numeroTelefono;
+		this.telefono = numeroTelefono;
 		this.indirizzo = indirizzo;
 		this.cittadinanza = cittadinanza;
 		this.CAP = CAP;
@@ -105,11 +105,11 @@ public class Studente {
 	}
 
 	public String getNumeroTelefono() {
-		return numeroTelefono;
+		return telefono;
 	}
 
 	public void setNumeroTelefono(String numeroTelefono) {
-		this.numeroTelefono = numeroTelefono;
+		this.telefono = numeroTelefono;
 	}
 
 	@Override
@@ -147,7 +147,7 @@ public class Studente {
 		builder.append(", email=");
 		builder.append(email);
 		builder.append(", numeroTelefono=");
-		builder.append(numeroTelefono);
+		builder.append(telefono);
 		builder.append(", indirizzo=");
 		builder.append(indirizzo);
 		builder.append(", cittadinanza=");
