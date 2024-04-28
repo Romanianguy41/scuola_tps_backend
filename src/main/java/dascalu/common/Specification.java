@@ -2,37 +2,55 @@ package dascalu.common;
 
 public class Specification {
 
-	public static String convertToSQL(String search) {
-		StringBuilder whereCondition = new StringBuilder(); 
-		if(search.contains(";") || search.contains(",") || search.contains("^"))
-		{
-			if(search.contains(",")) {
-				String elementsOr[] = search.split(","); //equivalente or
-				for(int i = 0; i < elementsOr.length; i++) {
-					whereCondition.append("LOWER(");
-					whereCondition.append(elementsOr[i].replace(":", ")="));
-					if(i < elementsOr.length -1)
-						whereCondition.append(" OR ");
-				}
-			}
-			
-			if(search.contains(";")) {
-				String elementsAnd[] = search.split(";"); //equivalente dell end
-				for(int i = 0; i < elementsAnd.length; i++) {
-					whereCondition.append("LOWER(");
-					whereCondition.append(elementsAnd[i].replace(":", ")="));
-					if( i < elementsAnd.length -1)
-						whereCondition.append(" AND ");
-				}
-			}
-		}
-		else {
-			whereCondition.append(search.replace(":", "="));
-			
-		}
-		return whereCondition.toString();
-		
-		
-	}
-	
+    public static String convertToSQL(String search) {
+        StringBuilder whereCondition = new StringBuilder();
+
+        // Check for special characters
+        if (search.contains(";") || search.contains(",") || search.contains("$")) {
+            // Handle parentheses
+            if (search.contains("$")) {
+                int start = search.indexOf("$");
+                int end = search.lastIndexOf("$");
+                whereCondition.append(search);
+                whereCondition.setCharAt(start, '(');
+                whereCondition.setCharAt(end, ')');
+                search = whereCondition.toString();
+                whereCondition.setLength(0); // Clear the StringBuilder
+                if (!(search.contains(",") || search.contains(";"))) {
+                    whereCondition.append(search.replace(":", "="));
+                }
+            }
+
+            // Handle comma-separated elements
+            if (search.contains(",")) {
+                String[] elementsOr = search.split(",");
+                for (int i = 0; i < elementsOr.length; i++) {
+                    if (elementsOr[i].contains("(")) {
+                        whereCondition.append(elementsOr[i].replace("(", "(LOWER(").replace(":", ")="));
+                    } else {
+                        whereCondition.append("LOWER(").append(elementsOr[i].replace(":", ")=").replace(");", "));"));
+                    }
+                    if (i < elementsOr.length - 1) {
+                        whereCondition.append(" OR ");
+                    }
+                }
+            }
+
+            // Handle semicolon-separated elements
+            if (search.contains(";")) {
+                whereCondition.setLength(0); // Clear the StringBuilder
+                String[] elementsAnd = search.split(";");
+                for (int i = 0; i < elementsAnd.length; i++) {
+                    whereCondition.append("(LOWER(").append(elementsAnd[i].replace(":", ")=")).append(")");
+                    if (i < elementsAnd.length - 1) {
+                        whereCondition.append(" AND ");
+                    }
+                }
+            }
+        } else {
+            whereCondition.append(search.replace(":", "="));
+        }
+
+        return whereCondition.toString();
+    }
 }

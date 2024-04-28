@@ -60,6 +60,9 @@ public class StudenteRepository implements studenteInterface {
 			query.append("Where ").append(specificationResult)
 				 .append(";");
 		}
+		
+		System.out.println("\nFIltro");
+		System.out.println(query);
 		ResultSet res = db.executeQuery(query.toString());
 		while(res.next()) {
 			studenti.add(
@@ -98,9 +101,9 @@ public class StudenteRepository implements studenteInterface {
 			 .append(" cittadinanza='").append(student.getCittadinanza()).append("',")
 			 .append(" CAP=").append(student.getCAP()).append(",")
 			 .append(" email='").append(student.getEmail()).append("',")
-			 .append(" numeroTelefono='").append(student.getNumeroTelefono()).append("', ");
+			 .append(" numeroTelefono='").append(student.getNumeroTelefono()).append("' ");
 		if(student.getClasse()!= null)
-			query.append(" rifClasse=").append(student.getClasse().getIdClasse()).append(" ");
+			query.append(", rifClasse=").append(student.getClasse().getIdClasse()).append(" ");
 			 
 		query.append("where idStudente=").append(student.getIdStudente());
 		System.out.println(query);
