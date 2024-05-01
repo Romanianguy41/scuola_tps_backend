@@ -18,5 +18,5 @@ public interface studenteInterface {
 	
 	void createStudent(Studente Student) throws ClassNotFoundException, SQLException;
 	
-	public void removeStudentClass(Studente student) throws ClassNotFoundException, SQLException;
+	public void removeStudentClass(String idStudente) throws ClassNotFoundException, SQLException;
 }

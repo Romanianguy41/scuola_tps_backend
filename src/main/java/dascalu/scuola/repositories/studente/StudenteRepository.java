@@ -155,12 +155,12 @@ public class StudenteRepository implements studenteInterface {
 	}
 	
 	@Override
-	public void removeStudentClass(Studente student) throws ClassNotFoundException, SQLException{
+	public void removeStudentClass(String idStudente) throws ClassNotFoundException, SQLException{
 		MySqlConnector db = new MySqlConnector();
 		StringBuilder query = new StringBuilder(); 
 		query.append("update studenti set ")
 			 .append(" rifClasse=").append("null").append(" ");
-		query.append("where idStudente=").append(student.getIdStudente());
+		query.append("where idStudente=").append(idStudente);
 		System.out.println(query);
 		db.executeQuery(query.toString());
 		System.out.println("\n");

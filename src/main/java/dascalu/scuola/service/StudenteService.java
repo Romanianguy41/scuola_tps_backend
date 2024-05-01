@@ -45,8 +45,7 @@ public class StudenteService {
 		StudenteManager.createStudent(studente);
 	} 
 	
-	public static void removeStudentClass(String userRequest) throws ClassNotFoundException, SQLException{
-		Studente studente = JsonIo.toObjects(Utils.convertDate(userRequest), null, Studente.class);
-		StudenteManager.removeStudentClass(studente);
+	public static void removeStudentClass(String idStudent) throws ClassNotFoundException, SQLException{
+		StudenteManager.removeStudentClass(idStudent);
 	}
 }

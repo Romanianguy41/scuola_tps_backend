@@ -53,8 +53,8 @@ public class StudenteManager {
 		new StudenteRepository().createStudent(student);
 	}
 	
-	public static void removeStudentClass(Studente student) throws ClassNotFoundException, SQLException{
-		new StudenteRepository().removeStudentClass(student);
+	public static void removeStudentClass(String idStudente) throws ClassNotFoundException, SQLException{
+		new StudenteRepository().removeStudentClass(idStudente);
 	}
 
 
