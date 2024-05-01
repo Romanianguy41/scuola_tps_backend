@@ -1,145 +1,173 @@
 package dascalu.scuola.repositories.professore;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dascalu.common.MySqlConnector;
 import dascalu.common.Specification;
-import dascalu.scuola.models.Professore;
 import dascalu.scuola.models.ClasseMateria;
+import dascalu.scuola.models.Professore;
 
 public class ProfessorRepository implements ProfessoreInterface {
 
-	@Override
-	public ArrayList<Professore> getProfessors() throws ClassNotFoundException, SQLException {
-		MySqlConnector db = new MySqlConnector();
-		ArrayList<Professore> professori = new ArrayList<Professore>();
-		StringBuilder query = new StringBuilder();
-		query.append("Select idProfessore, nome, cognome, codFiscale, luogoNascita, ")
-					.append("dataNascita, indirizzo, email, numeroTelefono, CAP, ")
-					.append("cittadinanza ")
-					.append("from professori ");
-		ResultSet res = db.executeQuery(query.toString());
-		while(res.next()) {
-			professori.add(
-					new Professore (res.getInt("idProfessore"),
-							   res.getString("nome"),
-							   res.getString("cognome"),
-							   res.getString("codFiscale"),
-							   res.getString("luogoNascita"),
-							   res.getDate("dataNascita"),
-							   res.getString("indirizzo"),
-							   res.getString("cittadinanza"),
-							   res.getInt("CAP"),
-							   res.getString("email"),
-							   res.getString("numeroTelefono"),
-							   new ArrayList<ClasseMateria>()
-							)
-					);
-		}
-		System.out.println("\n");
-		System.out.println("GET PROFESSORI:\n eseguita con successo");
-		
-		return professori;
+    @Override
+    public ArrayList<Professore> getProfessors() throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        ArrayList<Professore> professori = new ArrayList<Professore>();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT idProfessore, nome, cognome, codFiscale, luogoNascita, ")
+                .append("dataNascita, indirizzo, email, numeroTelefono, CAP, ")
+                .append("cittadinanza ")
+                .append("FROM professori ");
+        try {
+            ResultSet res = db.executeQuery(query.toString());
+            while (res.next()) {
+                professori.add(new Professore(res.getInt("idProfessore"),
+                        res.getString("nome"),
+                        res.getString("cognome"),
+                        res.getString("codFiscale"),
+                        res.getString("luogoNascita"),
+                        res.getDate("dataNascita"),
+                        res.getString("indirizzo"),
+                        res.getString("cittadinanza"),
+                        res.getInt("CAP"),
+                        res.getString("email"),
+                        res.getString("numeroTelefono"),
+                        new ArrayList<ClasseMateria>()
+                ));
+            }
+            System.out.println("\nGET PROFESSORI:\n eseguita con successo");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+        return professori;
+    }
 
-	}
+    @Override
+    public ArrayList<Professore> getProfessors(String search) throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        ArrayList<Professore> professori = new ArrayList<Professore>();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT idProfessore, nome, cognome, codFiscale, luogoNascita, ")
+                .append("dataNascita, indirizzo, email, numeroTelefono, CAP, ")
+                .append("cittadinanza ")
+                .append("FROM professori ");
+        String specificationResult = Specification.convertToSQL(search);
+        if (!(specificationResult.equals(""))) {
+            query.append("WHERE ").append(specificationResult).append(";");
+        }
+        try {
+            PreparedStatement statement = db.startQuery(query.toString());
 
-	@Override
-	public ArrayList<Professore> getProfessors(String search) throws ClassNotFoundException, SQLException {
-		MySqlConnector db = new MySqlConnector();
-		ArrayList<Professore> professori = new ArrayList<Professore>();
-		StringBuilder query = new StringBuilder();
-		query.append("Select idProfessore, nome, cognome, codFiscale, luogoNascita, ")
-					.append("dataNascita, indirizzo, email, numeroTelefono, CAP, ")
-					.append("cittadinanza ")
-					.append("from professori ");
-		String specificationResult = Specification.convertToSQL(search);
-		if(!(specificationResult.equals(""))) {
-			query.append("Where ").append(specificationResult)
-				 .append(";");
-		}
-		ResultSet res = db.executeQuery(query.toString());
-		while(res.next()) {
-			professori.add(
-					new Professore (res.getInt("idProfessore"),
-							   res.getString("nome"),
-							   res.getString("cognome"),
-							   res.getString("codFiscale"),
-							   res.getString("luogoNascita"),
-							   res.getDate("dataNascita"),
-							   res.getString("indirizzo"),
-							   res.getString("cittadinanza"),
-							   res.getInt("CAP"),
-							   res.getString("email"),
-							   res.getString("numeroTelefono"),
-							   new ArrayList<ClasseMateria>()
-							)
-					);
-		}
-		System.out.println("\n");
-		System.out.println("GET PROFESSORI, \nsearch:\n"+search+": eseguita con successo");
-		
-		return professori;
+            ResultSet res = statement.executeQuery();
+            while (res.next()) {
+                professori.add(new Professore(res.getInt("idProfessore"),
+                        res.getString("nome"),
+                        res.getString("cognome"),
+                        res.getString("codFiscale"),
+                        res.getString("luogoNascita"),
+                        res.getDate("dataNascita"),
+                        res.getString("indirizzo"),
+                        res.getString("cittadinanza"),
+                        res.getInt("CAP"),
+                        res.getString("email"),
+                        res.getString("numeroTelefono"),
+                        new ArrayList<ClasseMateria>()
+                ));
+            }
+            System.out.println("\nGET PROFESSORI, \nsearch:\n" + search + ": eseguita con successo");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+        return professori;
+    }
 
-	}
+    @Override
+    public void updateProfessor(Professore professor) throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE professori SET nome=?, cognome=?, codFiscale=?, luogoNascita=?, ")
+                .append("dataNascita=?, indirizzo=?, cittadinanza=?, CAP=?, email=?, numeroTelefono=? ")
+                .append("WHERE idprofessore=?");
+        try {
+            PreparedStatement statement = db.startQuery(query.toString());
+            statement.setString(1, professor.getNome());
+            statement.setString(2, professor.getCognome());
+            statement.setString(3, professor.getCodiceFiscale());
+            statement.setString(4, professor.getLuogoNascita());
+            statement.setDate(5, professor.getDataNascita());
+            statement.setString(6, professor.getIndirizzo());
+            statement.setString(7, professor.getCittadinanza());
+            statement.setInt(8, professor.getCAP());
+            statement.setString(9, professor.getEmail());
+            statement.setString(10, professor.getNumeroTelefono());
+            statement.setInt(11, professor.getIdProfessore());
 
-	@Override
-	public void updateProfessor(Professore professor) throws ClassNotFoundException, SQLException  {
-		MySqlConnector db = new MySqlConnector();
-		StringBuilder query = new StringBuilder(); 
-		query.append("update professori set ")
-			 .append(" nome='").append(professor.getNome()).append("',")
-			 .append(" cognome='").append(professor.getCognome()).append("',")
-			 .append(" codFiscale='").append(professor.getCodiceFiscale()).append("',")
-			 .append(" luogoNascita='").append(professor.getLuogoNascita()).append("',")
-			 .append(" dataNascita='").append(professor.getDataNascita()).append("',")
-			 .append(" indirizzo='").append(professor.getIndirizzo()).append("',")
-			 .append(" cittadinanza='").append(professor.getCittadinanza()).append("',")
-			 .append(" CAP=").append(professor.getCAP()).append(",")
-			 .append(" email='").append(professor.getEmail()).append("',")
-			 .append(" numeroTelefono='").append(professor.getNumeroTelefono()).append("' ")
-			 .append("where idprofessore=").append(professor.getIdProfessore());
-		db.executeQuery(query.toString());
-		System.out.println("\n");
-		System.out.println("UPDATE PROFESSORE:\n eseguita con successo");
-	
-	}
+            statement.executeUpdate();
+            db.commit();
+            System.out.println("\nUPDATE PROFESSORE:\n eseguita con successo");
+        } catch (SQLException ex) {
+            db.rollBack();
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+    }
 
-	@Override
-	public void deleteProfessor(String idProfessor) throws ClassNotFoundException, SQLException  {
-		MySqlConnector db = new MySqlConnector();
-		StringBuilder query = new StringBuilder();
-		query.append("delete from professori where idProfessore=")
-		.append(idProfessor);
-		db.executeQuery(query.toString());
-		System.out.println("\n");
-		System.out.println("DELETE PROFESSORE:\n eseguita con successo");
-		
-	}
+    @Override
+    public void deleteProfessor(String idProfessor) throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        String query = "DELETE FROM professori WHERE idProfessore = ?";
+        try {
+            PreparedStatement statement = db.startQuery(query);
+            statement.setString(1, idProfessor);
 
-	@Override
-	public void createProfessor(Professore professor) throws ClassNotFoundException, SQLException  {
-		MySqlConnector db = new MySqlConnector();
-		StringBuilder query = new StringBuilder(); 
-		query.append("Insert into professori ( nome, cognome, codFiscale, luogoNascita, indirizzo, ")
-			 .append("cittadinanza, CAP, email, dataNascita, numeroTelefono) ")
-			 .append("values('")
-			 .append(professor.getNome()).append("', '")
-			 .append(professor.getCognome()).append("','")
-			 .append(professor.getCodiceFiscale()).append("','")
-			 .append(professor.getLuogoNascita()).append("','")
-			 .append(professor.getIndirizzo()).append("','")
-			 .append(professor.getCittadinanza()).append("',")
-			 .append(professor.getCAP()).append(",'")
-			 .append(professor.getEmail()).append("','")
-			 .append(professor.getDataNascita()).append("','")
-			 .append(professor.getNumeroTelefono()).append("');");
-		System.out.println(query);
-		db.executeQuery(query.toString());
-		System.out.println("\n");
-		System.out.println("CREATE PROFESSORE:\n eseguita con successo");
+            statement.executeUpdate();
+            db.commit();
 
-	}
+            System.out.println("\nDELETE PROFESSORE:\n eseguita con successo");
+        } catch (SQLException ex) {
+            db.rollBack();
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+    }
 
+    @Override
+    public void createProfessor(Professore professor) throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO professori (nome, cognome, codFiscale, luogoNascita, indirizzo, ")
+                .append("cittadinanza, CAP, email, dataNascita, numeroTelefono) ")
+                .append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        try {
+            PreparedStatement statement = db.startQuery(query.toString());
+            statement.setString(1, professor.getNome());
+            statement.setString(2, professor.getCognome());
+            statement.setString(3, professor.getCodiceFiscale());
+            statement.setString(4, professor.getLuogoNascita());
+            statement.setString(5, professor.getIndirizzo());
+            statement.setString(6, professor.getCittadinanza());
+            statement.setInt(7, professor.getCAP());
+            statement.setString(8, professor.getEmail());
+            statement.setDate(9, professor.getDataNascita());
+            statement.setString(10, professor.getNumeroTelefono());
+
+            statement.executeUpdate();
+            db.commit();
+            System.out.println("\nCREATE PROFESSORE:\n eseguita con successo");
+        } catch (SQLException ex) {
+            db.rollBack();
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+    }
 }

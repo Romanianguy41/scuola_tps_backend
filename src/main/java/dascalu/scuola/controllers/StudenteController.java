@@ -52,7 +52,7 @@ public class StudenteController {
 	@PUT
 	@Path("classe/{idStudente}")
 	@Consumes(MediaType.TEXT_PLAIN)
-	public void removeStudentClass(@QueryParam("idStudente") String idStudente) throws ClassNotFoundException, SQLException{
+	public void removeStudentClass(@PathParam("idStudente") String idStudente) throws ClassNotFoundException, SQLException{
 		StudenteService.removeStudentClass(idStudente);
 	}
 }

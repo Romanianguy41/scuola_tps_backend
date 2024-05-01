@@ -1,5 +1,6 @@
 package dascalu.scuola.repositories.insegna;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,96 +13,121 @@ import dascalu.scuola.models.Professore;
 
 public class InsegnaRepository implements InsegnaInterface {
 
-	@Override
-	public ArrayList<Insegna> getInsegna() throws ClassNotFoundException, SQLException {
-		MySqlConnector db = new MySqlConnector();
-		ArrayList<Insegna> classiProfessori = new ArrayList<Insegna>();
-		StringBuilder query = new StringBuilder();
-		query.append("Select idInsegna, rifClasse, rifProfessore, materia ")
-		.append("from insegna");
-		ResultSet res = db.executeQuery(query.toString());
-		while(res.next()) {
-			classiProfessori.add(
-					new Insegna(res.getInt("idInsegna"),
-							   new Classe (res.getInt("rifClasse")),
-							   new Professore(res.getInt("rifProfessore")),
-							   res.getString("materia")
-							)
-					);
-		}
-		System.out.println("\n");
-		System.out.println("GET INSEGNA:\n eseguita con successo");
-		return classiProfessori;
-	}
+    @Override
+    public ArrayList<Insegna> getInsegna() throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        ArrayList<Insegna> classiProfessori = new ArrayList<Insegna>();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT idInsegna, rifClasse, rifProfessore, materia ")
+                .append("FROM insegna");
+        try {
+            ResultSet res = db.executeQuery(query.toString());
+            while (res.next()) {
+                classiProfessori.add(new Insegna(res.getInt("idInsegna"),
+                                                  new Classe(res.getInt("rifClasse")),
+                                                  new Professore(res.getInt("rifProfessore")),
+                                                  res.getString("materia")));
+            }
+            System.out.println("\nGET INSEGNA:\n eseguita con successo");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+        return classiProfessori;
+    }
 
-	@Override
-	public ArrayList<Insegna> getInsegna(String search) throws ClassNotFoundException, SQLException {
-		MySqlConnector db = new MySqlConnector();
-		ArrayList<Insegna> classiProfessori = new ArrayList<Insegna>();
-		StringBuilder query = new StringBuilder();
-		query.append("Select idInsegna, rifClasse, rifProfessore, materia ")
-		.append("from insegna ");
-		String specificationResult = Specification.convertToSQL(search);
-		if(!(specificationResult.equals(""))) {
-			query.append("Where ").append(specificationResult)
-					.append(";");			
-		}
-		ResultSet res = db.executeQuery(query.toString());
-		while(res.next()) {
-			classiProfessori.add(
-					new Insegna(res.getInt("idInsegna"),
-							   new Classe (res.getInt("rifClasse")),
-							   new Professore(res.getInt("rifProfessore")),
-							   res.getString("materia")
-							)
-					);
-		}
-		System.out.println("\n");
-		System.out.println("GET INSEGNA, \nsearch:\n"+search+": eseguita con successo");
-		return classiProfessori;
-	}
+    @Override
+    public ArrayList<Insegna> getInsegna(String search) throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        ArrayList<Insegna> classiProfessori = new ArrayList<Insegna>();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT idInsegna, rifClasse, rifProfessore, materia ")
+                .append("FROM insegna ");
+        String specificationResult = Specification.convertToSQL(search);
+        if (!(specificationResult.equals(""))) {
+            query.append("WHERE ").append(specificationResult).append(";");
+        }
+        System.out.println("\nFIltro");
+        System.out.println(query);
+        try {
+            ResultSet res = db.executeQuery(query.toString());
+            while (res.next()) {
+                classiProfessori.add(new Insegna(res.getInt("idInsegna"),
+                                                  new Classe(res.getInt("rifClasse")),
+                                                  new Professore(res.getInt("rifProfessore")),
+                                                  res.getString("materia")));
+            }
+            System.out.println("\nGET INSEGNA, \nsearch:\n" + search + ": eseguita con successo");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+        return classiProfessori;
+    }
 
-	@Override
-	public void updateInsegna(Insegna classeProfessore) throws ClassNotFoundException, SQLException {
-		MySqlConnector db = new MySqlConnector();
-		StringBuilder query = new StringBuilder(); 
-		query.append("update insegna set rifClasse=").append(classeProfessore.getClasse().getIdClasse())
-					.append(",rifProfessore=").append(classeProfessore.getProfessore().getIdProfessore()).append(", ")
-					.append("materia='").append(classeProfessore.getMateria()).append("' ")
-					.append("where idInsegna=").append(classeProfessore.getIdInsegna());
-		db.executeQuery(query.toString());
-		System.out.println("\n");
-		System.out.println("UPDATE INSEGNA:\n eseguita con successo");
-		
-	}
+    @Override
+    public void updateInsegna(Insegna classeProfessore) throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE insegna SET rifClasse=?, rifProfessore=?, materia=? WHERE idInsegna=?");
+        try {
+            PreparedStatement statement = db.startQuery(query.toString());
+            statement.setInt(1, classeProfessore.getClasse().getIdClasse());
+            statement.setInt(2, classeProfessore.getProfessore().getIdProfessore());
+            statement.setString(3, classeProfessore.getMateria());
+            statement.setInt(4, classeProfessore.getIdInsegna());
 
-	@Override
-	public void deleteInsegna(String classeProfessoreKey) throws ClassNotFoundException, SQLException {
-		MySqlConnector db = new MySqlConnector();
-		StringBuilder query = new StringBuilder(); 
-		query.append("delete from insegna where idInsegna=")
-			.append(classeProfessoreKey);
-		System.out.println(query);
-		db.executeQuery(query.toString());
-		System.out.println("\n");
-		System.out.println("DELETE INSEGNA:\n eseguita con successo");
-		
+            statement.executeUpdate();
+            db.commit();
+            System.out.println("\nUPDATE INSEGNA:\n eseguita con successo");
+        } catch (SQLException ex) {
+            db.rollBack();
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+    }
 
-	}
+    @Override
+    public void deleteInsegna(String classeProfessoreKey) throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        String query = "DELETE FROM insegna WHERE idInsegna = ?";
+        try {
+            PreparedStatement statement = db.startQuery(query);
+            statement.setString(1, classeProfessoreKey);
 
-	@Override
-	public void createInsegna(Insegna classeProfessore) throws ClassNotFoundException, SQLException {
-		MySqlConnector db = new MySqlConnector();
-		StringBuilder query = new StringBuilder(); 
-		query.append("Insert into insegna ( rifClasse, rifProfessore, materia) ")
-			 .append("values(")
-			 .append(classeProfessore.getClasse().getIdClasse()).append(", ")
-			 .append(classeProfessore.getProfessore().getIdProfessore()).append(", '")
-			 .append(classeProfessore.getMateria()).append("');");
-		db.executeQuery(query.toString());
-		System.out.println("\n");
-		System.out.println("CREATE INSEGNA:\n eseguita con successo");
+            statement.executeUpdate();
+            db.commit();
 
-	}
+            System.out.println("\nDELETE INSEGNA:\n eseguita con successo");
+        } catch (SQLException ex) {
+            db.rollBack();
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+    }
 
+    @Override
+    public void createInsegna(Insegna classeProfessore) throws SQLException, ClassNotFoundException {
+        MySqlConnector db = new MySqlConnector();
+        String query = "INSERT INTO insegna (rifClasse, rifProfessore, materia) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement statement = db.startQuery(query);
+            statement.setInt(1, classeProfessore.getClasse().getIdClasse());
+            statement.setInt(2, classeProfessore.getProfessore().getIdProfessore());
+            statement.setString(3, classeProfessore.getMateria());
+
+            statement.executeUpdate();
+            db.commit();
+            System.out.println("\nCREATE INSEGNA:\n eseguita con successo");
+        } catch (SQLException ex) {
+            db.rollBack();
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+    }
 }
