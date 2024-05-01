@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.cedarsoftware.io.JsonIo;
+import com.cedarsoftware.io.WriteOptionsBuilder;
 
 import dascalu.scuola.manager.ClasseManager;
 import dascalu.scuola.models.Classe;
@@ -12,56 +13,58 @@ import dascalu.scuola.models.ProfessoreMateria;
 
 public class ClasseService {
 
-	public static ArrayList<Classe> getClasses() throws ClassNotFoundException, SQLException {
-		ArrayList<Classe> classi = ClasseManager.getClasses();
-		StringBuilder searchString = new StringBuilder(); 
-		for(Classe classe : classi) {
-			searchString = new StringBuilder();
-			searchString.append("rifClasse:")
-						.append(classe.getIdClasse());
-			ArrayList<Insegna> insegna = InsegnaService.getInsegna(searchString.toString());
-			for(Insegna elementoInsegna : insegna) {
-				classe.getDocenti().add(new ProfessoreMateria(elementoInsegna.getProfessore(),
-										elementoInsegna.getMateria()));
-			}
-		}
+	public static String getClasses() throws ClassNotFoundException, SQLException {
 		
-		return classi;
+		return JsonIo.toJson(getClassesInterno(null), new WriteOptionsBuilder()
+				.prettyPrint(true) 
+				.showTypeInfoNever()
+				.build()
+				);
 	}
 	
-	public static ArrayList<Classe> getClasses(String search) throws ClassNotFoundException, SQLException {
-		ArrayList<Classe> classi = ClasseManager.getClasses(search);
-		StringBuilder searchString = new StringBuilder(); 
-		for(Classe classe : classi) {
-			searchString = new StringBuilder();
-			searchString.append("rifClasse:")
-						.append(classe.getIdClasse());
-			ArrayList<Insegna> insegna = InsegnaService.getInsegna(searchString.toString());
-			for(Insegna elementoInsegna : insegna) {
-				classe.getDocenti().add(new ProfessoreMateria(elementoInsegna.getProfessore(),
-										elementoInsegna.getMateria()));
-			}
-		}
-		
-		return classi;
+	public static String getClasses(String search) throws ClassNotFoundException, SQLException {
+
+		return JsonIo.toJson(getClassesInterno(search), new WriteOptionsBuilder()
+				.prettyPrint(true) 
+				.showTypeInfoNever()
+				.build()
+				);
 	}
 	
-	public static String updateClass(String userRequest) throws ClassNotFoundException, SQLException{
+	public static void updateClass(String userRequest) throws ClassNotFoundException, SQLException{
 		Classe classe = JsonIo.toObjects(userRequest, null, Classe.class);
 		ClasseManager.updateClass(classe);
-		return "Done";
 	}
 	
-	public static String deleteClass(String idClasse) throws ClassNotFoundException, SQLException{
+	public static void deleteClass(String idClasse) throws ClassNotFoundException, SQLException{
 		ClasseManager.deleteClass(idClasse);
-		return "Done";
 	} 
 	
-	public static String createClass(String userRequest) throws ClassNotFoundException, SQLException{
+	public static void createClass(String userRequest) throws ClassNotFoundException, SQLException{
 		
 		Classe classe = JsonIo.toObjects(userRequest, null, Classe.class);
 		ClasseManager.createClass(classe);
-		return "Done";
 	} 
+	
+	private static ArrayList<Classe> getClassesInterno(String search) throws ClassNotFoundException, SQLException{
+		ArrayList<Classe> classi;
+		if(search != null) {
+			classi = ClasseManager.getClasses(search);
+		}else {
+			classi = ClasseManager.getClasses();
+		}
+		StringBuilder searchString = new StringBuilder(); 
+		for(Classe classe : classi) {
+			searchString = new StringBuilder();
+			searchString.append("rifClasse:")
+						.append(classe.getIdClasse());
+			ArrayList<Insegna> insegna = InsegnaService.getInsegna(searchString.toString());
+			for(Insegna elementoInsegna : insegna) {
+				classe.getDocenti().add(new ProfessoreMateria(elementoInsegna.getProfessore(),
+										elementoInsegna.getMateria()));
+			}
+		}
+		return classi;
+	}
 
 }

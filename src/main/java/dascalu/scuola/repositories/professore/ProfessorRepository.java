@@ -106,7 +106,7 @@ public class ProfessorRepository implements ProfessoreInterface {
             statement.setString(7, professor.getCittadinanza());
             statement.setInt(8, professor.getCAP());
             statement.setString(9, professor.getEmail());
-            statement.setString(10, professor.getNumeroTelefono());
+            statement.setString(10, professor.getTelefono());
             statement.setInt(11, professor.getIdProfessore());
 
             statement.executeUpdate();
@@ -158,7 +158,7 @@ public class ProfessorRepository implements ProfessoreInterface {
             statement.setInt(7, professor.getCAP());
             statement.setString(8, professor.getEmail());
             statement.setDate(9, professor.getDataNascita());
-            statement.setString(10, professor.getNumeroTelefono());
+            statement.setString(10, professor.getTelefono());
 
             statement.executeUpdate();
             db.commit();

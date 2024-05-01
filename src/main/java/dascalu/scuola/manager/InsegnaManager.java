@@ -55,4 +55,26 @@ public class InsegnaManager {
 	public static void createInsegna(Insegna classeProfessore) throws ClassNotFoundException, SQLException{
 		new InsegnaRepository().createInsegna(classeProfessore);
 	}
+	
+	public static ArrayList<Insegna> getInsegnaInterno(String search) throws ClassNotFoundException, SQLException {
+		ArrayList<Insegna> insegna;
+		if (search != null) {
+			insegna = new InsegnaRepository().getInsegna(search);
+		}else {
+			insegna = new InsegnaRepository().getInsegna();
+		}
+		for(int i = 0; i < insegna.size(); i++) {
+			StringBuilder searchString = new StringBuilder();
+			searchString.append("idClasse:");
+			searchString.append(insegna.get(i).getClasse().getIdClasse());
+			Classe classe = ClasseManager.getClasses(searchString.toString()).get(0);
+			insegna.get(i).setClasse(classe);
+			searchString = new StringBuilder();
+			searchString.append("idProfessore:");
+			searchString.append(insegna.get(i).getProfessore().getIdProfessore());
+			Professore professore = ProfessoreManager.getProfessors(searchString.toString()).get(0);
+			insegna.get(i).setProfessore(professore);
+		}
+		return insegna;
+	}
 }

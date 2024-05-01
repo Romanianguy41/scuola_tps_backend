@@ -20,21 +20,18 @@ public class InsegnaService {
 		return InsegnaManager.getInsegna(search);
 	}
 	
-	public static String updateInsegna(String userRequest) throws ClassNotFoundException, SQLException{
+	public static void updateInsegna(String userRequest) throws ClassNotFoundException, SQLException{
 		Insegna insegna = JsonIo.toObjects(userRequest, null, Insegna.class);
 		InsegnaManager.updateInsegna(insegna);
-		return "Done";
 	}
 	
-	public static String deleteInsegna(String classeProfessoreKey) throws ClassNotFoundException, SQLException{
+	public static void deleteInsegna(String classeProfessoreKey) throws ClassNotFoundException, SQLException{
 		InsegnaManager.deleteInsegna(classeProfessoreKey);
-		return "Done";
 	}
 	
-	public static String createInsegna(String userRequest) throws ClassNotFoundException, SQLException{
+	public static void createInsegna(String userRequest) throws ClassNotFoundException, SQLException{
 		Insegna insegna = JsonIo.toObjects(userRequest, null, Insegna.class);
 		InsegnaManager.createInsegna(insegna);
-		return "Done";
 	}
 
 }

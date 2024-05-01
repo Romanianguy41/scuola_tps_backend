@@ -12,7 +12,7 @@ public class Professore {
 	String luogoNascita;
 	Date dataNascita;
 	String email;
-	String numeroTelefono;
+	String telefono;
 	String indirizzo;
 	String cittadinanza;
 	Integer CAP;
@@ -20,7 +20,7 @@ public class Professore {
 	
 	public Professore(int idProfessore, String nome, String cognome, String codiceFiscale, String luogoNascita,
 			Date dataNascita, String indirizzo, String cittadinanza, int CAP, String email,
-			String numeroTelefono, ArrayList<ClasseMateria> insegna) {
+			String telefono, ArrayList<ClasseMateria> insegna) {
 		this.idProfessore = idProfessore;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -28,7 +28,7 @@ public class Professore {
 		this.luogoNascita = luogoNascita;
 		this.dataNascita = dataNascita;
 		this.email = email;
-		this.numeroTelefono = numeroTelefono;
+		this.telefono = telefono;
 		this.indirizzo = indirizzo;
 		this.cittadinanza = cittadinanza;
 		this.CAP = CAP;
@@ -103,12 +103,12 @@ public class Professore {
 		this.email = email;
 	}
 
-	public String getNumeroTelefono() {
-		return numeroTelefono;
+	public String getTelefono() {
+		return telefono;
 	}
 
-	public void setNumeroTelefono(String numeroTelefono) {
-		this.numeroTelefono = numeroTelefono;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	
 
@@ -155,7 +155,7 @@ public class Professore {
 		builder.append(", email=");
 		builder.append(email);
 		builder.append(", numeroTelefono=");
-		builder.append(numeroTelefono);
+		builder.append(telefono);
 		builder.append(", indirizzo=");
 		builder.append(indirizzo);
 		builder.append(", cittadinanza=");

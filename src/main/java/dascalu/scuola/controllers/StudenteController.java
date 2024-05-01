@@ -1,9 +1,7 @@
 package dascalu.scuola.controllers;
 
 import java.sql.SQLException;
-import java.util.List;
 
-import dascalu.scuola.models.Studente;
 import dascalu.scuola.service.StudenteService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -19,7 +17,7 @@ import jakarta.ws.rs.core.MediaType;
 @Path("studente")
 public class StudenteController {
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String getStudents() throws ClassNotFoundException, SQLException {
 		return StudenteService.getStudents();
 	}

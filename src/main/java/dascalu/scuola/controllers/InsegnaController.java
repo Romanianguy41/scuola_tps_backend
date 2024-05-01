@@ -3,6 +3,9 @@ package dascalu.scuola.controllers;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.cedarsoftware.io.JsonIo;
+import com.cedarsoftware.io.WriteOptionsBuilder;
+
 import dascalu.scuola.models.Insegna;
 import dascalu.scuola.service.InsegnaService;
 import jakarta.ws.rs.Consumes;
@@ -20,35 +23,40 @@ import jakarta.ws.rs.core.MediaType;
 public class InsegnaController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Insegna> getInsegna() throws ClassNotFoundException, SQLException {
-		return InsegnaService.getInsegna();
+	public String getInsegna() throws ClassNotFoundException, SQLException {
+		return JsonIo.toJson(InsegnaService.getInsegna(), new WriteOptionsBuilder()
+				.prettyPrint(true) 
+				.showTypeInfoNever()
+				.build()
+				);
 	}
 	
 	@GET
 	@Path("filter")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Insegna> getInsegna(@QueryParam("search") String search) throws ClassNotFoundException, SQLException {
-		return InsegnaService.getInsegna(search);	
+	public String getInsegna(@QueryParam("search") String search) throws ClassNotFoundException, SQLException {
+		return JsonIo.toJson(InsegnaService.getInsegna(search), new WriteOptionsBuilder()
+				.prettyPrint(true) 
+				.showTypeInfoNever()
+				.build()
+				);
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public String createInsegna(String userRequest) throws ClassNotFoundException, SQLException {
-		return InsegnaService.createInsegna(userRequest);
+	public void createInsegna(String userRequest) throws ClassNotFoundException, SQLException {
+		InsegnaService.createInsegna(userRequest);
 	}
 	
 	@DELETE
 	@Path("{idprofessore}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteInsegna(@PathParam("idprofessore") String idprofessore) throws ClassNotFoundException, SQLException {
-		return InsegnaService.deleteInsegna(idprofessore);
+	public void deleteInsegna(@PathParam("idprofessore") String idprofessore) throws ClassNotFoundException, SQLException {
+		InsegnaService.deleteInsegna(idprofessore);
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public String updateInsegna(String userRequest) throws ClassNotFoundException, SQLException{
-		return InsegnaService.updateInsegna(userRequest);
+	public void updateInsegna(String userRequest) throws ClassNotFoundException, SQLException{
+		InsegnaService.updateInsegna(userRequest);
 	}
 }

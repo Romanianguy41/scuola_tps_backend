@@ -1,7 +1,6 @@
 package dascalu.scuola.service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import com.cedarsoftware.io.JsonIo;
 import com.cedarsoftware.io.WriteOptionsBuilder;
@@ -9,7 +8,6 @@ import com.cedarsoftware.io.WriteOptionsBuilder;
 import dascalu.common.Utils;
 import dascalu.scuola.manager.StudenteManager;
 import dascalu.scuola.models.Studente;
-import dascalu.scuola.repositories.studente.StudenteRepository;
 
 public class StudenteService {
 

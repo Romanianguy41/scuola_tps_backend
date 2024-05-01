@@ -25,12 +25,7 @@ public class ClasseController {
 	@JsonbTransient
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getClassi() throws ClassNotFoundException, SQLException {
-		//return "rizzo";
-		return JsonIo.toJson(ClasseService.getClasses(), new WriteOptionsBuilder()
-		.prettyPrint(true) 
-		.showTypeInfoNever()
-		.build()
-		);
+		return ClasseService.getClasses();
 	}
 	
 	@GET
@@ -38,31 +33,24 @@ public class ClasseController {
 	@Path("filter")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getClassi(@QueryParam("search") String search) throws ClassNotFoundException, SQLException {
-		return JsonIo.toJson(ClasseService.getClasses(search), new WriteOptionsBuilder()
-    			.prettyPrint(true) 
-    			.showTypeInfoNever()
-    			.build()
-    			);
+		return ClasseService.getClasses(search);
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public String createClasse(String userRequest) throws ClassNotFoundException, SQLException {
-		return ClasseService.createClass(userRequest);
+	public void createClasse(String userRequest) throws ClassNotFoundException, SQLException {
+		ClasseService.createClass(userRequest);
 	}
 	
 	@DELETE
 	@Path("{idClasse}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteClasse(@PathParam("idClasse") String id) throws ClassNotFoundException, SQLException {
-		return ClasseService.deleteClass(id);
+	public void deleteClasse(@PathParam("idClasse") String id) throws ClassNotFoundException, SQLException {
+		ClasseService.deleteClass(id);
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public String updateClasse(String userRequest) throws ClassNotFoundException, SQLException{
-		return ClasseService.updateClass(userRequest);
+	public void updateClasse(String userRequest) throws ClassNotFoundException, SQLException{
+		ClasseService.updateClass(userRequest);
 	}
 }
