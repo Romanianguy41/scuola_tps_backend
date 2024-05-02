@@ -46,4 +46,8 @@ public class StudenteService {
 	public static void removeStudentClass(String idStudent) throws ClassNotFoundException, SQLException{
 		StudenteManager.removeStudentClass(idStudent);
 	}
+	
+	public static void createStudenteFromForum(Studente studente) throws ClassNotFoundException, SQLException {
+		StudenteManager.createStudent(studente);
+	}
 }

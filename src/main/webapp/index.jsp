@@ -14,5 +14,8 @@
     <a href="http://localhost:8080/scuola/webapi/classe/2">getClassesQuinte</a><br>
     <p>API che elimina la classe che posside ID uguale a quello del path</p><br>
     
+    <a href="http://localhost:8080/scuola/forum.jsp">createStudentForum</a> <br>
+    <p>API che mediante il forum presente al link sopra permette di aggiungere un nuovo studente</p><br>
+    
 </body>
 </html>

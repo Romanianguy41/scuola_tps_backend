@@ -1,10 +1,14 @@
 package dascalu.scuola.controllers;
 
+import java.sql.Date;
 import java.sql.SQLException;
 
 import dascalu.scuola.service.StudenteService;
+import dascalu.scuola.models.Classe;
+import dascalu.scuola.models.Studente;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -52,5 +56,18 @@ public class StudenteController {
 	@Consumes(MediaType.TEXT_PLAIN)
 	public void removeStudentClass(@PathParam("idStudente") String idStudente) throws ClassNotFoundException, SQLException{
 		StudenteService.removeStudentClass(idStudente);
+	}
+	
+	@POST
+	@Path("forum")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void addStudentForum(@FormParam("nomeStudente") String nome, @FormParam("cognomeStudente") String cognome,
+			@FormParam("codFiscale") String codFiscale, @FormParam("luogoNascita") String luogoNascita,
+			@FormParam("dataNascita") Date data, @FormParam("email") String email,
+			@FormParam("numeroTelefono") String numeroTelefono, @FormParam("indirizzo") String indirizzo,
+			@FormParam("CAP") int CAP, @FormParam("cittadinanza") String cittadinanza) throws ClassNotFoundException, SQLException {
+		
+		StudenteService.createStudenteFromForum(new Studente(0,nome,cognome,codFiscale,luogoNascita,data,indirizzo,cittadinanza,CAP,
+													email,numeroTelefono,new Classe()));
 	}
 }

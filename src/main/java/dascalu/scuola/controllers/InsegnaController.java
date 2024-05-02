@@ -45,6 +45,7 @@ public class InsegnaController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createInsegna(String userRequest) throws ClassNotFoundException, SQLException {
+		System.out.println(userRequest);
 		InsegnaService.createInsegna(userRequest);
 	}
 	
@@ -55,7 +56,7 @@ public class InsegnaController {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.TEXT_PLAIN)
 	public void updateInsegna(String userRequest) throws ClassNotFoundException, SQLException{
 		InsegnaService.updateInsegna(userRequest);
 	}
