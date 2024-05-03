@@ -126,6 +126,7 @@ public class StudenteRepository implements studenteInterface {
 	    	statement.setString(9, student.getEmail());
 	    	statement.setString(10, student.getNumeroTelefono());
 	    	if (student.getClasse() != null) {
+	    		System.out.println("valore chiabe:" + student.getClasse().getIdClasse());
 	        	statement.setInt(11, student.getClasse().getIdClasse());
 	        } else {
 	        	statement.setNull(11, Types.INTEGER);

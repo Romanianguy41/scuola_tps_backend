@@ -9,6 +9,7 @@ public class Specification {
         if (search.contains(";") || search.contains(",") || search.contains("$")) {
             // Handle parentheses
             if (search.contains("$")) {
+            	System.out.println(search);
                 int start = search.indexOf("$");
                 int end = search.lastIndexOf("$");
                 whereCondition.append(search);
@@ -19,6 +20,7 @@ public class Specification {
                 if (!(search.contains(",") || search.contains(";"))) {
                     whereCondition.append(search.replace(":", "="));
                 }
+                System.out.println(search);
             }
 
             // Handle comma-separated elements
@@ -34,6 +36,8 @@ public class Specification {
                         whereCondition.append(" OR ");
                     }
                 }
+               System.out.println(whereCondition.toString());
+               search = whereCondition.toString();
             }
 
             // Handle semicolon-separated elements
@@ -45,6 +49,7 @@ public class Specification {
                     if (i < elementsAnd.length - 1) {
                         whereCondition.append(" AND ");
                     }
+                    System.out.println(whereCondition.toString());
                 }
             }
         } else {
