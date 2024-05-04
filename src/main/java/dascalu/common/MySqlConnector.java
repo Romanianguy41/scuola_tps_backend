@@ -45,14 +45,8 @@ public class MySqlConnector {
     public ResultSet executeQuery(String query) throws ClassNotFoundException, SQLException {
         ResultSet resultSet = null;
 
-        try {
             preparedStatement = conn.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
-        } catch (SQLException ex) {
-        	System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
 
         return resultSet;
     }

@@ -37,7 +37,7 @@ public class ClasseController {
 	}
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.TEXT_PLAIN)
 	public void createClasse(String userRequest) throws ClassNotFoundException, SQLException {
 		ClasseService.createClass(userRequest);
 	}
@@ -49,7 +49,7 @@ public class ClasseController {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.TEXT_PLAIN)
 	public void updateClasse(String userRequest) throws ClassNotFoundException, SQLException{
 		ClasseService.updateClass(userRequest);
 	}
