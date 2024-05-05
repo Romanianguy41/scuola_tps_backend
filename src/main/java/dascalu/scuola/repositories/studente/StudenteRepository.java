@@ -94,6 +94,41 @@ public class StudenteRepository implements studenteInterface {
 		
 		return studenti;
 	}
+	
+	@Override
+	public void createStudent(Studente student) throws ClassNotFoundException, SQLException{
+		 MySqlConnector db = new MySqlConnector();
+		    String query = "INSERT INTO studenti (nome, cognome, codFiscale, luogoNascita, indirizzo, "
+		    			+ "cittadinanza, CAP, rifClasse, email, dataNascita, numeroTelefono) " +
+		                   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		    try {
+		    	PreparedStatement statement = db.startQuery(query);
+		        statement.setString(1, student.getNome());
+		        statement.setString(2, student.getCognome());
+		        statement.setString(3, student.getCodiceFiscale());
+		        statement.setString(4, student.getLuogoNascita());
+		        statement.setString(5, student.getIndirizzo());
+		        statement.setString(6, student.getCittadinanza());
+		        statement.setInt(7, student.getCAP());
+		        if (student.getClasse() != null) {
+		        	statement.setInt(8, student.getClasse().getIdClasse());
+		        } else {
+		        	statement.setNull(8, Types.INTEGER);
+		        }
+		        statement.setString(9, student.getEmail());
+		        statement.setDate(10, new Date(student.getDataNascita().getTime()));
+		        statement.setString(11, student.getNumeroTelefono());
+		        statement.executeUpdate();
+		        db.commit(); 
+		        System.out.println("\n");
+		        System.out.println("CREATE STUDENTI:\n eseguita con successo");
+		    } catch (SQLException ex) {
+		        db.rollBack();
+		        ex.printStackTrace();
+		    } finally {
+		        db.closeConnection();
+		    }
+	}
 
 	@Override
 	public void updateStudent(Studente student) throws ClassNotFoundException, SQLException {
@@ -170,41 +205,7 @@ public class StudenteRepository implements studenteInterface {
 	    }
 	}
 
-	@Override
-	public void createStudent(Studente student) throws ClassNotFoundException, SQLException{
-		 MySqlConnector db = new MySqlConnector();
-		    String query = "INSERT INTO studenti (nome, cognome, codFiscale, luogoNascita, indirizzo, "
-		    			+ "cittadinanza, CAP, rifClasse, email, dataNascita, numeroTelefono) " +
-		                   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		    try {
-		    	PreparedStatement statement = db.startQuery(query);
-		        statement.setString(1, student.getNome());
-		        statement.setString(2, student.getCognome());
-		        statement.setString(3, student.getCodiceFiscale());
-		        statement.setString(4, student.getLuogoNascita());
-		        statement.setString(5, student.getIndirizzo());
-		        statement.setString(6, student.getCittadinanza());
-		        statement.setInt(7, student.getCAP());
-		        if (student.getClasse() != null) {
-		        	statement.setInt(8, student.getClasse().getIdClasse());
-		        } else {
-		        	statement.setNull(8, Types.INTEGER);
-		        }
-		        statement.setString(9, student.getEmail());
-		        statement.setDate(10, new Date(student.getDataNascita().getTime()));
-		        statement.setString(11, student.getNumeroTelefono());
-		        statement.executeUpdate();
-		        db.commit(); 
-		        System.out.println("\n");
-		        System.out.println("CREATE STUDENTI:\n eseguita con successo");
-		    } catch (SQLException ex) {
-		        db.rollBack();
-		        ex.printStackTrace();
-		    } finally {
-		        db.closeConnection();
-		    }
-
-	}
+	
 	
 	@Override
 	public void removeStudentClass(String idStudente) throws ClassNotFoundException, SQLException{
@@ -217,6 +218,25 @@ public class StudenteRepository implements studenteInterface {
 	        db.commit();
 	        System.out.println("\n");
 	        System.out.println("UPDATE STUDENTE CLASSE:\n eseguita con successo");
+	    } catch (SQLException ex) {
+	        db.rollBack();
+	        ex.printStackTrace();
+	    } finally {
+	        db.closeConnection();
+	    }
+	}
+	
+	@Override
+	public void removeClassReference(String idClasse) throws ClassNotFoundException, SQLException{
+		MySqlConnector db = new MySqlConnector();
+	    String query = "UPDATE studenti SET rifClasse = NULL WHERE rifClasse = ?";
+	    try {
+	        PreparedStatement statement = db.startQuery(query);
+	        statement.setString(1, idClasse);
+	        statement.executeUpdate();
+	        db.commit();
+	        System.out.println("\n");
+	        System.out.println("UPDATE REMOVE CLASS REF:\n eseguita con successo");
 	    } catch (SQLException ex) {
 	        db.rollBack();
 	        ex.printStackTrace();

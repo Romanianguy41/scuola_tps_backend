@@ -34,6 +34,10 @@ public class StudenteManager {
 		new StudenteRepository().removeStudentClass(idStudente);
 	}
 	
+	public static void removeClassReference(String idClasse) throws ClassNotFoundException, SQLException{
+		new StudenteRepository().removeClassReference(idClasse);
+	}
+	
 	private static ArrayList<Studente> getStudentiInterno(String search) throws ClassNotFoundException, SQLException{
 		ArrayList<Studente> studenti;
 		if(search != null) {

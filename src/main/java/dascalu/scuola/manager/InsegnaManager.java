@@ -44,6 +44,10 @@ public class InsegnaManager {
 		return insegna;
 	}
 	
+	public static void createInsegna(Insegna classeProfessore) throws ClassNotFoundException, SQLException{
+		new InsegnaRepository().createInsegna(classeProfessore);
+	}
+	
 	public static void updateInsegna(Insegna classeProfessore) throws ClassNotFoundException, SQLException{
 		new InsegnaRepository().updateInsegna(classeProfessore);
 	}
@@ -52,9 +56,6 @@ public class InsegnaManager {
 		new InsegnaRepository().deleteInsegna(classeProfessoreKey);
 	}
 	
-	public static void createInsegna(Insegna classeProfessore) throws ClassNotFoundException, SQLException{
-		new InsegnaRepository().createInsegna(classeProfessore);
-	}
 	
 	public static ArrayList<Insegna> getInsegnaInterno(String search) throws ClassNotFoundException, SQLException {
 		ArrayList<Insegna> insegna;
@@ -77,4 +78,13 @@ public class InsegnaManager {
 		}
 		return insegna;
 	}
+	
+	public static void deleteInsegnaByProfessor(String professoreKey) throws ClassNotFoundException, SQLException{
+		new InsegnaRepository().deleteInsegnaByProfessor(professoreKey);
+	}
+	
+	public static void deleteInsegnaByClass(String classeKey) throws ClassNotFoundException, SQLException{
+		new InsegnaRepository().deleteInsegnaByClass(classeKey);
+	}
+	
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.cedarsoftware.io.JsonIo;
 import com.cedarsoftware.io.WriteOptionsBuilder;
 
+import dascalu.scuola.manager.InsegnaManager;
 import dascalu.scuola.manager.ProfessoreManager;
 import dascalu.scuola.models.ClasseMateria;
 import dascalu.scuola.models.Insegna;
@@ -37,6 +38,7 @@ public class ProfessoreService {
 	}
 	
 	public static void deleteProfessor(String idProfessor) throws ClassNotFoundException, SQLException{
+		InsegnaManager.deleteInsegnaByProfessor(idProfessor);
 		ProfessoreManager.deleteProfessor(idProfessor);
 	}
 	

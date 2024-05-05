@@ -8,6 +8,7 @@ import com.cedarsoftware.io.WriteOptionsBuilder;
 import dascalu.common.Utils;
 import dascalu.scuola.manager.StudenteManager;
 import dascalu.scuola.models.Studente;
+import dascalu.scuola.repositories.studente.StudenteRepository;
 
 public class StudenteService {
 
@@ -26,6 +27,10 @@ public class StudenteService {
 				.showTypeInfoNever()
 				.build()
 				);
+	}
+	
+	public static void createStudenteFromForum(Studente studente) throws ClassNotFoundException, SQLException {
+		StudenteManager.createStudent(studente);
 	}
 	
 	public static void updateStudent(String userRequest) throws ClassNotFoundException, SQLException{
@@ -47,7 +52,7 @@ public class StudenteService {
 		StudenteManager.removeStudentClass(idStudent);
 	}
 	
-	public static void createStudenteFromForum(Studente studente) throws ClassNotFoundException, SQLException {
-		StudenteManager.createStudent(studente);
+	public static void removeClassReference(String idClasse) throws ClassNotFoundException, SQLException{
+		StudenteManager.removeClassReference(idClasse);
 	}
 }

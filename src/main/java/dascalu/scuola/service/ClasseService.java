@@ -7,6 +7,8 @@ import com.cedarsoftware.io.JsonIo;
 import com.cedarsoftware.io.WriteOptionsBuilder;
 
 import dascalu.scuola.manager.ClasseManager;
+import dascalu.scuola.manager.InsegnaManager;
+import dascalu.scuola.manager.StudenteManager;
 import dascalu.scuola.models.Classe;
 import dascalu.scuola.models.Insegna;
 import dascalu.scuola.models.ProfessoreMateria;
@@ -37,6 +39,8 @@ public class ClasseService {
 	}
 	
 	public static void deleteClass(String idClasse) throws ClassNotFoundException, SQLException{
+		StudenteManager.removeClassReference(idClasse);
+		InsegnaManager.deleteInsegnaByClass(idClasse);
 		ClasseManager.deleteClass(idClasse);
 	} 
 	

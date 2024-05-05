@@ -58,6 +58,14 @@ public class StudenteController {
 		StudenteService.removeStudentClass(idStudente);
 	}
 	
+	@PUT
+	@Path("allClasse/{idClasse}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public void removeClassReference(@PathParam("idClasse") String idClasse) throws ClassNotFoundException, SQLException{
+		StudenteService.removeStudentClass(idClasse);
+	}
+	
+	
 	@POST
 	@Path("forum")
 	@Produces(MediaType.APPLICATION_JSON)

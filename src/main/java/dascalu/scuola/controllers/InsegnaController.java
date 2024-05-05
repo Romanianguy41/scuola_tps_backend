@@ -49,15 +49,29 @@ public class InsegnaController {
 		InsegnaService.createInsegna(userRequest);
 	}
 	
-	@DELETE
-	@Path("{idprofessore}")
-	public void deleteInsegna(@PathParam("idprofessore") String idprofessore) throws ClassNotFoundException, SQLException {
-		InsegnaService.deleteInsegna(idprofessore);
-	}
-	
 	@PUT
 	@Consumes(MediaType.TEXT_PLAIN)
 	public void updateInsegna(String userRequest) throws ClassNotFoundException, SQLException{
 		InsegnaService.updateInsegna(userRequest);
 	}
+	
+	@DELETE
+	@Path("{idInsegna}")
+	public void deleteInsegna(@PathParam("idInsegna") String idInsegna) throws ClassNotFoundException, SQLException {
+		InsegnaService.deleteInsegna(idInsegna);
+	}
+	
+	@DELETE
+	@Path("professore/{idprofessore}")
+	public void deleteInsegnaByProfessor(@PathParam("idProfessore") String idProfessore) throws ClassNotFoundException, SQLException {
+		InsegnaService.deleteInsegnaByProfessor(idProfessore);
+	}
+	
+	@DELETE
+	@Path("classe/{idClasse}")
+	public void deleteInsegnaByClass(@PathParam("idClasse") String idClasse) throws ClassNotFoundException, SQLException {
+		InsegnaService.deleteInsegnaByClass(idClasse);
+	}
+	
+	
 }

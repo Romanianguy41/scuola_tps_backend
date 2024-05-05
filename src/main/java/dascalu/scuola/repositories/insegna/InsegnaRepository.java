@@ -38,6 +38,27 @@ public class InsegnaRepository implements InsegnaInterface {
     }
 
     @Override
+    public void createInsegna(Insegna classeProfessore) throws SQLException, ClassNotFoundException {
+    	MySqlConnector db = new MySqlConnector();
+    	String query = "INSERT INTO insegna (rifClasse, rifProfessore, materia) VALUES (?, ?, ?)";
+    	try {
+    		PreparedStatement statement = db.startQuery(query);
+    		statement.setInt(1, classeProfessore.getClasse().getIdClasse());
+    		statement.setInt(2, classeProfessore.getProfessore().getIdProfessore());
+    		statement.setString(3, classeProfessore.getMateria());
+    		
+    		statement.executeUpdate();
+    		db.commit();
+    		System.out.println("\nCREATE INSEGNA:\n eseguita con successo");
+    	} catch (SQLException ex) {
+    		db.rollBack();
+    		ex.printStackTrace();
+    	} finally {
+    		db.closeConnection();
+    	}
+    }
+    
+    @Override
     public ArrayList<Insegna> getInsegna(String search) throws SQLException, ClassNotFoundException {
         MySqlConnector db = new MySqlConnector();
         ArrayList<Insegna> classiProfessori = new ArrayList<Insegna>();
@@ -110,24 +131,46 @@ public class InsegnaRepository implements InsegnaInterface {
         }
     }
 
-    @Override
-    public void createInsegna(Insegna classeProfessore) throws SQLException, ClassNotFoundException {
-        MySqlConnector db = new MySqlConnector();
-        String query = "INSERT INTO insegna (rifClasse, rifProfessore, materia) VALUES (?, ?, ?)";
+
+	@Override
+	public void deleteInsegnaByProfessor(String professoreKey) throws ClassNotFoundException, SQLException {
+		MySqlConnector db = new MySqlConnector();
+        String query = "DELETE FROM insegna WHERE rifProfessore = ?";
         try {
             PreparedStatement statement = db.startQuery(query);
-            statement.setInt(1, classeProfessore.getClasse().getIdClasse());
-            statement.setInt(2, classeProfessore.getProfessore().getIdProfessore());
-            statement.setString(3, classeProfessore.getMateria());
+            statement.setString(1, professoreKey);
 
             statement.executeUpdate();
             db.commit();
-            System.out.println("\nCREATE INSEGNA:\n eseguita con successo");
+
+            System.out.println("\nDELETE INSEGNA rifPROF:\n eseguita con successo");
         } catch (SQLException ex) {
             db.rollBack();
             ex.printStackTrace();
         } finally {
             db.closeConnection();
         }
-    }
+		
+	}
+
+	@Override
+	public void deleteInsegnaByClass(String classeKey) throws ClassNotFoundException, SQLException {
+		MySqlConnector db = new MySqlConnector();
+        String query = "DELETE FROM insegna WHERE rifClasse = ?";
+        try {
+            PreparedStatement statement = db.startQuery(query);
+            statement.setString(1, classeKey);
+
+            statement.executeUpdate();
+            db.commit();
+
+            System.out.println("\nDELETE INSEGNA rifPROF:\n eseguita con successo");
+        } catch (SQLException ex) {
+            db.rollBack();
+            ex.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+		
+	}
 }
