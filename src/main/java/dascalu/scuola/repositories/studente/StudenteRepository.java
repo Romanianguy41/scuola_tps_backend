@@ -132,6 +132,7 @@ public class StudenteRepository implements studenteInterface {
 
 	@Override
 	public void updateStudent(Studente student) throws ClassNotFoundException, SQLException {
+		System.out.println(student);
 		MySqlConnector db = new MySqlConnector();
 	    StringBuilder query = new StringBuilder(); 
 	    query.append("update studenti set ")
@@ -160,7 +161,7 @@ public class StudenteRepository implements studenteInterface {
 	    	statement.setInt(8, student.getCAP());
 	    	statement.setString(9, student.getEmail());
 	    	statement.setString(10, student.getNumeroTelefono());
-	    	if (student.getClasse() != null) {
+	    	if ( student.getClasse() != null && student.getClasse().getIdClasse() != 0) {
 	    		System.out.println("valore chiave:" + student.getClasse().getIdClasse());
 	        	statement.setInt(11, student.getClasse().getIdClasse());
 	        } else {
