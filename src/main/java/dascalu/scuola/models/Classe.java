@@ -23,7 +23,7 @@ public class Classe {
 		this.docenti = new ArrayList<ProfessoreMateria>();
 	}
 	
-	public Classe() {}
+	public Classe() {idClasse=0;}
 	
 	public int getIdClasse() {
 		return idClasse;

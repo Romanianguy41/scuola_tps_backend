@@ -65,17 +65,15 @@ public class StudenteController {
 		StudenteService.removeStudentClass(idClasse);
 	}
 	
-	
 	@POST
-	@Path("forum")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Path("form")
 	public void addStudentForum(@FormParam("nomeStudente") String nome, @FormParam("cognomeStudente") String cognome,
 			@FormParam("codFiscale") String codFiscale, @FormParam("luogoNascita") String luogoNascita,
 			@FormParam("dataNascita") Date data, @FormParam("email") String email,
 			@FormParam("numeroTelefono") String numeroTelefono, @FormParam("indirizzo") String indirizzo,
 			@FormParam("CAP") int CAP, @FormParam("cittadinanza") String cittadinanza) throws ClassNotFoundException, SQLException {
-		
+		System.out.println("get");
 		StudenteService.createStudenteFromForum(new Studente(0,nome,cognome,codFiscale,luogoNascita,data,indirizzo,cittadinanza,CAP,
-													email,numeroTelefono,new Classe()));
+													email,numeroTelefono, null));
 	}
 }
