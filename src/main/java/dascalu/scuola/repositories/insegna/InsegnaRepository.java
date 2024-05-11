@@ -139,7 +139,8 @@ public class InsegnaRepository implements InsegnaInterface {
         try {
             PreparedStatement statement = db.startQuery(query);
             statement.setString(1, professoreKey);
-
+            System.out.println(query);
+            System.out.println(professoreKey);
             statement.executeUpdate();
             db.commit();
 

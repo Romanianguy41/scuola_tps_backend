@@ -63,7 +63,7 @@ public class InsegnaController {
 	
 	@DELETE
 	@Path("professore/{idprofessore}")
-	public void deleteInsegnaByProfessor(@PathParam("idProfessore") String idProfessore) throws ClassNotFoundException, SQLException {
+	public void deleteInsegnaByProfessor(@PathParam("idprofessore") String idProfessore) throws ClassNotFoundException, SQLException {
 		InsegnaService.deleteInsegnaByProfessor(idProfessore);
 	}
 	

@@ -62,7 +62,7 @@ public class StudenteController {
 	@Path("allClasse/{idClasse}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	public void removeClassReference(@PathParam("idClasse") String idClasse) throws ClassNotFoundException, SQLException{
-		StudenteService.removeStudentClass(idClasse);
+		StudenteService.removeClassReference(idClasse);
 	}
 	
 	@POST
